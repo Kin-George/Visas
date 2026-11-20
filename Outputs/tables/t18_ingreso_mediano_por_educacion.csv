@@ -1,0 +1,25 @@
+grupo,educacion,n_muestra,ocupados_miles,mediana_ingreso_smmlv,mediana_ingreso_hora_milesimas_smmlv
+Colombianos,Todos,548080,21933.091,1.0,5.052
+Colombianos,Hasta primaria,106029,4571.185,0.571,3.234
+Colombianos,Secundaria,53151,2178.542,0.702,3.88
+Colombianos,Media,184184,7415.993,0.999,4.795
+Colombianos,Técnica o tecnológica,76818,2893.963,1.096,5.633
+Colombianos,Universitaria o más,127898,4873.408,1.999,10.954
+Venezolanos,Todos,20146,845.768,0.913,4.311
+Venezolanos,Hasta primaria,2593,95.353,0.8,3.638
+Venezolanos,Secundaria,4468,176.565,0.843,3.943
+Venezolanos,Media,9789,410.472,0.914,4.382
+Venezolanos,Técnica o tecnológica,1268,60.227,0.999,4.85
+Venezolanos,Universitaria o más,2028,103.151,1.017,5.174
+Venezolanos afiliados a salud,Todos,13492,534.293,0.96,4.527
+Venezolanos afiliados a salud,Hasta primaria,1516,48.32,0.742,3.651
+Venezolanos afiliados a salud,Secundaria,2629,96.191,0.843,4.042
+Venezolanos afiliados a salud,Media,6715,260.572,0.971,4.557
+Venezolanos afiliados a salud,Técnica o tecnológica,1043,48.851,0.999,4.929
+Venezolanos afiliados a salud,Universitaria o más,1589,80.359,1.028,5.231
+Venezolanos no afiliados,Todos,6628,309.885,0.857,4.042
+Venezolanos no afiliados,Hasta primaria,1072,46.792,0.828,3.593
+Venezolanos no afiliados,Secundaria,1829,79.633,0.843,3.834
+Venezolanos no afiliados,Media,3066,149.564,0.857,4.108
+Venezolanos no afiliados,Técnica o tecnológica,224,11.36,0.913,4.192
+Venezolanos no afiliados,Universitaria o más,437,22.535,1.0,4.655

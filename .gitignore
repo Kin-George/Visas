@@ -1,0 +1,13 @@
+# Microdatos procesados de la GEIH: demasiado grandes para GitHub (se regeneran con Code/01 y Code/07)
+Datos/*.pkl
+
+# Documentos internos del equipo (no se publican)
+Docs/20261111 Proyecto Visas R Cancillería Colombia.docx
+Docs/20261113 Resolución de comentarios.docx
+Code/16b_matriz_comentarios.py
+
+# Archivos temporales
+~$*
+__pycache__/
+*.pyc
+.DS_Store

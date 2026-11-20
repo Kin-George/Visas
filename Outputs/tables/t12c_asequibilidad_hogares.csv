@@ -1,0 +1,13 @@
+tarifa,fee_por_persona_COP,fee_por_persona_en_SMMLV,umbral,pct_hogares_con_venezolano,tarifa_hogar_mediana_COP
+USD 464 (56+408) vigente,1501040.0,0.9,tarifa del hogar >= 1 mes(es) de ingreso laboral del hogar,64.9,3002080.0
+USD 464 (56+408) vigente,1501040.0,0.9,tarifa del hogar >= 2 mes(es) de ingreso laboral del hogar,36.6,3002080.0
+USD 464 (56+408) vigente,1501040.0,0.9,tarifa del hogar >= 3 mes(es) de ingreso laboral del hogar,23.4,3002080.0
+USD 464 (56+408) vigente,1501040.0,0.9,tarifa del hogar >= 3 SMMLV,19.4,3002080.0
+mitad (USD 232),750520.0,0.4,tarifa del hogar >= 1 mes(es) de ingreso laboral del hogar,36.6,1501040.0
+mitad (USD 232),750520.0,0.4,tarifa del hogar >= 2 mes(es) de ingreso laboral del hogar,14.8,1501040.0
+mitad (USD 232),750520.0,0.4,tarifa del hogar >= 3 mes(es) de ingreso laboral del hogar,10.0,1501040.0
+mitad (USD 232),750520.0,0.4,tarifa del hogar >= 3 SMMLV,1.0,1501040.0
+solo estudio USD 56 (se elimina la visa),181160.0,0.1,tarifa del hogar >= 1 mes(es) de ingreso laboral del hogar,7.8,362320.0
+solo estudio USD 56 (se elimina la visa),181160.0,0.1,tarifa del hogar >= 2 mes(es) de ingreso laboral del hogar,6.4,362320.0
+solo estudio USD 56 (se elimina la visa),181160.0,0.1,tarifa del hogar >= 3 mes(es) de ingreso laboral del hogar,6.0,362320.0
+solo estudio USD 56 (se elimina la visa),181160.0,0.1,tarifa del hogar >= 3 SMMLV,0.0,362320.0

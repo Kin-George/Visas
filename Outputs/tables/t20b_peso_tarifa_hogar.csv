@@ -1,0 +1,7 @@
+grupo,hogares_miles(escala GEIH),mediana_tarifa_hogar_COP_millones,mediana_pct_ingreso_mensual_del_hogar,pct_hogares_tarifa_mayor_a_1_mes,pct_hogares_sin_ingreso_laboral
+Todos los hogares con venezolanos,765.8,3.0,144.3,64.9,5.5
+Con al menos un menor de 18,511.3,3.0,182.3,74.2,6.0
+Sin menores de 18,254.5,1.5,92.3,46.3,4.7
+Con 1 venezolano,315.4,1.5,83.4,37.0,6.5
+Con 2 venezolanos,168.6,3.0,150.1,71.9,6.1
+Con 3 o más venezolanos,281.8,6.0,250.2,92.1,4.1

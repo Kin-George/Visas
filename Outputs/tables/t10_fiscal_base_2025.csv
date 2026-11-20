@@ -1,0 +1,19 @@
+,valor
+poblacion_venezolana_miles,1756.618
+ocupados_miles,859.749
+ocupados_formales_miles,178.595
+afiliados_contributivo_miles,290.108
+afiliados_subsidiado_miles,856.375
+masa_salarial_anual_billones,13.801
+INGRESOS_aportes_salud_billones,0.221
+INGRESOS_aportes_pension_billones,0.628
+INGRESOS_IVA_billones_bajo,0.331
+INGRESOS_IVA_billones_central,0.552
+INGRESOS_IVA_billones_alto,0.773
+COSTO_UPC_subsidiado_billones,1.133
+COSTO_UPC_contributivo_billones,0.441
+potencial_aportes_salud_informales_billones,0.975
+potencial_aportes_pension_informales_billones,1.98
+BALANCE_salud_(aportes - UPC total)_billones,-1.354
+BALANCE_estricto_(IVA central - UPC subsidiado)_billones,-0.581
+BALANCE_amplio_(IVA + aportes salud - UPC total)_billones,-0.802

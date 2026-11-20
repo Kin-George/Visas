@@ -1,0 +1,13 @@
+horizonte,conversion_con_tarifa_464,tarifa_alternativa,conversion_necesaria_para_no_perder,factible(<=100%)
+5,0.5,gratis,0.737,True
+5,0.5,solo estudio USD 56,0.697,True
+5,0.5,mitad USD 232,0.596,True
+5,0.7,gratis,1.032,False
+5,0.7,solo estudio USD 56,0.976,True
+5,0.7,mitad USD 232,0.834,True
+10,0.5,gratis,0.619,True
+10,0.5,solo estudio USD 56,0.601,True
+10,0.5,mitad USD 232,0.553,True
+10,0.7,gratis,0.866,True
+10,0.7,solo estudio USD 56,0.842,True
+10,0.7,mitad USD 232,0.774,True

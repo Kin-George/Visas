@@ -1,0 +1,122 @@
+﻿variable,archivo,pregunta,categorias
+directorio,F1,directorio,
+secuencia_p,F1,secuencia_p,
+fex_hog,F1,fex_hog,
+Ide12,F1,Total de personas en el hogar,
+ch1,F1,¿Cuántas personas del hogar son colombianos? (nacidas en Colombia si tiene doble nacionalidad),
+ch2,F1,¿Cuántas personas del hogar son venezolanos? (nacidas en Venezuela si tiene doble nacionalidad),
+ch9,F1,"¿Cuantos niños, niñas, adolescentes viven en este hogar? Nota: niños, niñas adolescentes hasta 18 años",1=numérica (rango 1 a 20) Validación no puede ser > a 2.1 total de personas en el hogar (excepto 98 y 99); 98=No desea informar; 99=No sabe
+ch10,F1,"¿Las niñas, niños o adolescentes de su hogar que estuvieron o están estudiando han experimentado discriminación en escuelas/colegios por su país de origen?",1=Si; 2=No; 3=Aún no esta/n en edad escolar; 99=No sabe
+ch11,F1,¿Por parte de quién se experimentó la situación de discriminación?,1=Otros estudiantes; 2=Profesores; 3=Directivos y administrativos; 4=Personal de operaciones y mantenimiento; 5=No sabe
+ch16,F1,"¿Cuantos niños, niñas, adolescentes actualmente NO está estudiando?",1=numérica (rango 1 a 20) Validación no puede ser > a 2.4 Cuantos NNA viven en este hogar? (excepto 98 y 99); 98=No desea informar; 99=No sabe
+ch4,F1,"¿Cuál es el principal motivo por el que alguno de los niños, niñas, adolescentes no está estudiando?","1=Falta de dinero; 2=Problemas de salud/discapacidad; 3=No cuenta con documentos para inscribirse en una institución educativa (doc. de identidad, doc. de regularización como ppt, certificados académicos, Sisben); 4=No consiguió cupo en una institución educativa; 5=No desea seguir estudiando; 6=Está haciendo trámite para ingresar a estudiar; 7=La edad del niño, niña o adolescente esta por encima de la edad esperada para el curso; 8=Aún no está en edad escolar; 9=Otro"
+ch12,F1,"¿En los próximos 12 meses tiene pensado retirar a la niña, niño o adolescente de la escuela/colegio en donde estudia actualmente?",1=Si; 2=No; 3=No sabe
+ch13,F1,¿Cuál es la principal razón por la que piensa retirarlo?,1=Se mudará de ciudad en Colombia; 2=Retornará a Venezuela; 3=Cambio a colegio más cercano; 4=No cuenta con recursos económicos suficientes para que asista a la institución educativa; 5=Por experimentar discriminación por su nacionalidad; 6=Baja satisfacción con la calidad educativa; 7=Cambio de barrio u otro sector en la ciudad; 8=Por problemas de salud/discapacidad; 9=Otra
+ch7,F1,"Durante los últimos 7 días, ¿en promedio cuántas comidas se consumían en su hogar al día?",1=1 comida; 2=2 comidas; 3=3 comidas o más
+ch15,F1,"En los últimos 7 días, ¿Ha enfrentado su hogar alguna dificultad para comprar alimentos y productos no alimentarios?",1=Si; 2=No; 3=No sabe/no hace compras en el hogar
+ch8,F1,¿Cuál es la principal dificultad para comprar alimentos y productos no alimentarios? opción única,1=Los precios de los productos son muy altos; 2=No encontré los productos que buscaba; 3=El mercado está muy lejos; 4=No tengo el suficiente dinero para comprar productos en los mercados; 5=Otras razones (especifique)
+ch17,F1,¿Hace cuánto tiempo reside su hogar en esta vivienda?,1=Menos de 6 meses; 2=Un año; 3=Más de un año
+directorio,F2,directorio,
+secuencia_p,F2,secuencia_p,
+orden,F2,orden,
+fex_per,F2,fex_per,
+Ide16,F2,¿Cuál es su nacionalidad?,1=Venezolana; 2=Venezolana y Colombiana; 3=Colombiana; 4=Otra
+Ide5,F2,Tipo de documento de identificación,"1=Cédula de ciudadanía colombiana; 2=Cédula de identidad venezolana; 3=Cedula de extranjería; 4=Tarjeta de identidad o contraseña; 5=Pasaporte; 6=Certificado de nacido vivo (para menores de edad) /Partida de Nacimiento; 7=Otro, Cual?"
+ide6,F2,Número de identificación,
+Ide14__1,F2,Ud. posee alguno de los siguientes permisos o documentos de regularización para permanecer en Colombia? (pregunta de selección múltiple) Salvoconducto (solicitante de asilo/refugio),
+Ide14__2,F2,Ud. posee alguno de los siguientes permisos o documentos de regularización para permanecer en Colombia? (pregunta de selección múltiple) Permiso de Protección Temporal -PPT,
+Ide14__3,F2,Ud. posee alguno de los siguientes permisos o documentos de regularización para permanecer en Colombia? (pregunta de selección múltiple) Permiso Especial de Permanencia-PEP,
+Ide14__4,F2,Ud. posee alguno de los siguientes permisos o documentos de regularización para permanecer en Colombia? (pregunta de selección múltiple) Permiso Especial de Permanencia Para el Fomento de la Formalización (PEPFF),
+Ide14__5,F2,Ud. posee alguno de los siguientes permisos o documentos de regularización para permanecer en Colombia? (pregunta de selección múltiple) Ninguno,
+Ide14__6,F2,"Ud. posee alguno de los siguientes permisos o documentos de regularización para permanecer en Colombia? (pregunta de selección múltiple) Otro, Cual?",
+Ide14_2,F2,Desde que año tiene el PPT (solo si responde 2 en la pregunta 7),
+Ide14_3,F2,Desde que mes tiene el PPT (solo si responde 2 en la pregunta 7),
+Ide15__1,F2,¿Por qué motivo no tiene un permiso o documento de regularización para permanecer en Colombia? (solo si respondió 5 en la pregunta 8) No lo necesita porque es Colombiano retornado o tiene doble nacionalidad,
+Ide15__2,F2,¿Por qué motivo no tiene un permiso o documento de regularización para permanecer en Colombia? (solo si respondió 5 en la pregunta 8) Tiene un documento de regularización en trámite,
+Ide15__3,F2,¿Por qué motivo no tiene un permiso o documento de regularización para permanecer en Colombia? (solo si respondió 5 en la pregunta 8) Falta de información,
+Ide15__4,F2,¿Por qué motivo no tiene un permiso o documento de regularización para permanecer en Colombia? (solo si respondió 5 en la pregunta 8) No cumple con los requisitos,
+Ide15__5,F2,¿Por qué motivo no tiene un permiso o documento de regularización para permanecer en Colombia? (solo si respondió 5 en la pregunta 8) Por desconfianza /no cree que le significaría beneficios,
+Ide15__6,F2,¿Por qué motivo no tiene un permiso o documento de regularización para permanecer en Colombia? (solo si respondió 5 en la pregunta 8) Ha tenido dificultades con la entidad encargada,
+Ide15__7,F2,¿Por qué motivo no tiene un permiso o documento de regularización para permanecer en Colombia? (solo si respondió 5 en la pregunta 8) No lo necesita cambiar/ Por Negligencia//No tuvo tiempo,
+Ide15__8,F2,"¿Por qué motivo no tiene un permiso o documento de regularización para permanecer en Colombia? (solo si respondió 5 en la pregunta 8) Otro, Cual?",
+Ide9,F2,Sexo de nacimiento,1=Hombre; 2=Mujer
+ch5__1,F2,¿Con quién Vive en Colombia? (selección múltiple) Solo / Sola,
+ch5__2,F2,¿Con quién Vive en Colombia? (selección múltiple) Padres,
+ch5__3,F2,¿Con quién Vive en Colombia? (selección múltiple) Hermanos / Hermanas,
+ch5__4,F2,¿Con quién Vive en Colombia? (selección múltiple) Pareja / cónyuge,
+ch5__5,F2,¿Con quién Vive en Colombia? (selección múltiple) Hijos / Hijas,
+ch5__6,F2,"¿Con quién comparte la habitación para dormir? Otros familiares (Suegras, suegros, nueras, nueros, tías, tíos, abuelas, abuelos)",
+ch5__7,F2,¿Con quién comparte la habitación para dormir? Amigos/as,
+ch5__8,F2,¿Con quién Vive en Colombia? (selección múltiple) Otras personas sin vínculos,
+ch6,F2,¿Con quién comparte la habitación para dormir?,1=Duerme solo/a en la habitación; 2=Con 1 persona; 3=Con 2 a 3 personas; 4=Con 4 a más personas
+Estado,F2,Estado,
+Mpio,F2,Municipio,
+sm1,F2,En qué año ingresó a Colombia por primera vez,
+sm2,F2,En que día por primera vez,
+sm3,F2,En qué año ingresó a Colombia por última vez,
+sm4,F2,En qué mes ingresó a Colombia por última vez,
+sm14,F2,¿Cuál fue la razón principal por la que migró a Colombia? (selección única),"1=Mejores oportunidades laborales; 2=Mejores condiciones de seguridad; 3=Para acceder a servicios de salud en Colombia; 4=Para acceder a servicios de educación en Colombia; 5=Para estar con su familia (Reunificación familiar); 6=Por la situación en Venezuela (económica, laboral, educativa, asistencial, política, de seguridad); 7=Otro, Cuál?"
+mi27,F2,¿Por cuál departamento ingreso a Colombia? (Con el propósito de residir en el país),"1=Arauca; 2=La Guajira; 3=Nariño; 4=Norte de Santander; 5=Cesar; 6=Atlántico; 7=Vichada; 8=Guainía; 9=Bogotá; 10=Antioquia; 11=Otro, Cuál?"
+mi27_1,F2,"Otro,¿cuál?",
+sm5,F2,¿De qué forma ingresó a Colombia usted y la mayoría de los miembros de su hogar?,1=A través de un paso fronterizo oficial; 2=A través de pasos no oficiales como trochas; 3=Prefiere no responder
+sm6,F2,"Pensando en su residencia, su intención a un año a partir de hoy es:",1=Permanecer en Colombia; 2=Regresar a Venezuela; 3=Trasladarse a otro país; 4=No lo sabe aún /Lo está pensando
+sm7,F2,"¿Cuál es la principal razón por la que desea permanecer en Colombia? [selección única, solo si respondió 1 en la pregunta 8)","1=Este es mi país/ Yo pertenezco a este país; 2=Uno o más familiares viven en este país.; 3=No se sentiría a gusto en otro país; 4=Porque ya se encuentra radicado en Colombia; 5=Por su cercanía a Venezuela; 6=Malas condiciones económicas, laborales, educativas, asistenciales, políticas, de seguridad en otros países; 7=Colombia ofrece buenas condiciones laborales, ingresos, de vida, estudio, clima, acceso a salud; 8=Por las condiciones económicas, laborales, educativas, asistenciales, políticas, de seguridad de Venezuela; 9=Otro, Cuál?"
+sm8,F2,¿A qué país piensa trasladarse? (solo si respondió 3 en la pregunta 8),"1=Ecuador; 2=Perú; 3=Chile; 4=Bolivia; 5=Argentina; 6=Canadá; 7=Australia; 8=Estados Unidos de América; 9=España; 10=Otro, Cuál?"
+sm15,F2,¿Antes de migrar tenía contactos que ya estuvieran viviendo en Colombia?,1=Si; 2=No
+sm16__1,F2,¿Quiénes eran estos contactos? (selección múltiple) Solo si respondió 1 en la pregunta 11 Familiar colombiano/a,
+sm16__2,F2,¿Quiénes eran estos contactos? (selección múltiple) Solo si respondió 1 en la pregunta 11 Familiar venezolano/a,
+sm16__3,F2,¿Quiénes eran estos contactos? (selección múltiple) Solo si respondió 1 en la pregunta 11 Amigo/a colombiano/a,
+sm16__4,F2,¿Quiénes eran estos contactos? (selección múltiple) Solo si respondió 1 en la pregunta 11 Amigo/a venezolano/a,
+sm16__5,F2,¿Quiénes eran estos contactos? (selección múltiple) Solo si respondió 1 en la pregunta 11 Conocido/a colombiano/a,
+sm16__6,F2,¿Quiénes eran estos contactos? (selección múltiple) Solo si respondió 1 en la pregunta 11 Conocido/a venezolano/a,
+sm17,F2,¿En los próximos 12 meses algún miembro de su hogar o familia en Venezuela tiene planes de migrar a Colombia para reunificarse con usted?,1=Si; 2=No
+sd1,F2,En general su estado de salud hoy en día es...,1=Muy bueno; 2=Bueno; 3=Regular; 4=Malo; 5=Muy Malo
+ml17,F2,¿Se encuentra afiliado/a al sistema de salud de Colombia?,"1=Si; 2=No; 99=No sabe, No informa"
+ml18,F2,¿A cuál régimen pertenece? (solo si responde 1 en la pregunta 2),"1=Contributivo; 2=Subsidiado (EPS-S); 3=Especial o de excepción (fuerzas militares y de policía, Ecopetrol, universidades públicas, magisterio); 99=No sabe, no informa"
+ml20,F2,"¿Cuál es la razón principal por la que no se encuentra afiliado/a al sistema de salud (selección única, solo si respondió 2 en la pregunta 2)","1=No sabe como obtenerlo; 2=No cuenta con los documentos para afiliarse; 3=Ha estado sano; 4=Por desempleo; 5=Muy costoso /Incapacidad de pago/ Mora en el pago; 6=No tiene empleo formal; 7=Está en trámite de afiliación; 8=Esperando respuesta o encuesta del Sisben; 9=Negligencia / No tiene tiempo; 10=Otro, Cual?"
+sd2,F2,¿Se encuentra afiliado/a al sistema de pensiones de Colombia?,"1=Si; 2=No; 3=No sabe, no informa"
+sd3,F2,"En los últimos 3 meses, ¿tuvo algún problema de salud médico que requirió acceder a un servicio de salud?",1=Si; 2=No
+sd4,F2,¿Pudo acceder al servicio de salud que necesitó en los últimos 3 meses? (solo si responde 1 en la pregunta 6),1=Si; 2=No
+sd5,F2,En caso de no poder acceder al servicio de salud ¿Cuál fue la razón principal? Respuesta con opción única (solo si responde 2 en la pregunta 7),"1=Lejanía al centro de salud; 2=Por su nacionalidad; 3=No se encontraba afiliado al sistema de salud; 4=Falta de dinero; 5=No cuenta con los documentos para acceder al servicio.; 6=No le dieron cita o autorización; 7=Falta de tiempo; 8=Otro, Cual?"
+ml21,F2,¿En qué actividad ocupó la mayor parte del tiempo en Venezuela antes de llegar a Colombia? (últimos 3 meses),"1=Trabajando; 2=Buscando trabajo; 3=Estudiando; 4=Oficios del hogar; 5=Incapacitado para trabajar; 6=Otro, cual?"
+ml15,F2,¿Ha tenido o tuvo dificultades para encontrar un trabajo en Colombia?,1=Si; 2=No
+ml16__1,F2,¿Cuáles dificultades? [selección múltiple] Le han exigido documentos que no tiene,
+ml16__2,F2,¿Cuáles dificultades? [selección múltiple] No tiene el tiempo suficiente para poder dedicarse a un empleo en tiempo completo,
+ml16__3,F2,¿Cuáles dificultades? [selección múltiple] Ha sentido discriminación por su nacionalidad,
+ml16__4,F2,¿Cuáles dificultades? [selección múltiple] No tenía conocimiento de donde buscar empleo,
+ml16__5,F2,¿Cuáles dificultades? [selección múltiple] Su círculo familiar no lo/la deja tener un empleo,
+ml16__6,F2,¿Cuáles dificultades? [selección múltiple] Ofertas con baja remuneración o malas condiciones de trabajo,
+ml16__7,F2,¿Cuáles dificultades? [selección múltiple] Falta de experiencia,
+ml32__1,F2,Experiencia o certificaciones laborales,
+ml32__2,F2,Credenciales o certificaciones educativas,
+ml32__3,F2,Documentos de identificación,
+ml32__4,F2,Afiliaciones a salud y pensión,
+ml32__5,F2,Permisos de trabajo,
+ml32__6,F2,Certificaciones judiciales o de organismos de control,
+ml32__7,F2,Certificaciones financieras o bancarias,
+ml32__8,F2,Otro cuál?,
+ml5,F2,¿En qué actividad ocupó la mayor parte del tiempo la semana pasada o los últimos 7 días?,"1=Trabajando; 2=Buscando trabajo; 3=Estudiando; 4=Oficios del hogar; 5=Incapacitado para trabajar; 6=Otro, cual?"
+ml6,F2,¿Hace cuánto tiempo está trabajando? (solo si responde 1 en la pregunta 4),1=Menos de 1 mes; 2=Entre 1 mes y menos de 3 meses; 3=Entre 3 meses y menos de 6 meses; 4=Entre 6 meses y menos de 1 año; 5=Hace más de un año
+ml7,F2,¿Por qué medio consiguió estar ocupado en este trabajo? (solo si responde 1 en la pregunta 4),"1=Pidió ayuda a familiares, amigos/as o colegas venezolanos/as; 2=Pidió ayuda a familiares, amigos/as o colegas colombianos/as; 3=Visitó, llevó o envió hojas de vida a empresas o empleadores; 4=Visitó, llevó o envió hojas de vida a bolsas de empleo o intermediarios; 5=Puso o consultó avisos clasificados (virtuales como redes sociales o físicos como anuncios); 6=Por el sistema de información del SENA; 7=A través de cajas de compensación; 8=A través de organizaciones de apoyo a migrantes u otras organizaciones; 9=Es trabajador independiente; 10=Otro, cual?"
+ml3_18,F2,¿Cuántas horas a la semana trabaja normalmente en ese trabajo? (solo si responde 1 en la pregunta 4),
+ml3_19,F2,"¿Qué tipo de contrato tiene, verbal o escrito? (solo si responde 1 en la pregunta 4)",1=Verbal; 2=Escrito
+ml31,F2,"Actualmente, ¿usted tiene una cuenta en una entidad financiera, microfinancieras, Fintech, billeteras financieras, cooperativas o bancos?",1=Si; 2=No
+ir7,F2,"¿En el último mes, usted envió dinero o remesas a alguien en Venezuela?",1=Si; 2=No
+pd1,F2,"Usted, ¿se ha sentido discriminado desde que llegó a Colombia?",1=Si; 2=No
+pd2,F2,¿Por qué motivo se ha sentido discriminado? (si respondió 1 en la pregunta 1),"1=Sexo; 2=Edad; 3=Discapacidad; 4=Estado de salud; 5=Origen étnico, color o lenguaje; 6=Rasgos físicos de su cuerpo (aparte del color de piel); 7=Estado de migración; 8=Condición socioeconómica; 9=Lugar de residencia; 10=Otro, cuál?"
+pd3__1,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) En su trabajo",
+pd3__2,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) En instituciones educativas",
+pd3__3,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) En establecimientos de salud",
+pd3__4,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) En instituciones del Estado colombiano (instituciones de justicia, oficinas de migración, Cancilleria)",
+pd3__5,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) En la calle/ espacios públicos",
+pd3__6,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) En el transporte público (bus, microbús, metro, transporte articulado)",
+pd3__7,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) Buscando trabajo",
+pd3__8,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) En su barrio",
+pd3__9,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) Buscando lugar para vivir en arriendo",
+pd3__10,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) Entidades financieras",
+pd3__11,F2,"Usted, ¿En qué lugares se ha sentido discriminado? (si respondió 1 en la pregunta 1) (opción múltiple) Otro",
+pd4,F2,¿Usted se considera pobre?,1=Si; 2=No
+pd5,F2,"Comparando su nivel de vida con el de sus padres cuando tenían su edad, ¿diría que Ud. es ahora más rico, más pobre o casi igual?",1=Más rico; 2=Más pobre; 3=Casi igual; 4=No sabe
+pd6,F2,"Comparando su nivel de vida con el que cree que tendrán sus hijos cuando tengan su edad, ¿diría que sus hijos serán más ricos, más pobres o casi igual?",1=Más rico; 2=Más pobre; 3=Casi igual; 4=No sabe
+pd7,F2,"¿cuál sería la principal necesidad, que no está siendo cubierta en su hogar hoy en día?","1=Alimentos; 2=Acceso a salud; 3=Asistencia para regularizar la situación migratoria y/o estatus de refugiado; 4=Generación de ingresos/empleo; 5=Educación y capacitación; 6=Artículos no alimentarios (ropa/cuidado personal, etc.); 7=Alojamiento; 8=Acceso a servicios públicos (agua, alcantarillado, electricidad,etc); 9=Reunificación familiar; 10=Esparcimiento y diversión; 11=No tiene necesidades por el momento.; 12=Otra necesidad ¿Cuál?"
+Ide10,F2,Ide10,1=15 a 24 años; 2=25 a 54 años; 3=55 años a más

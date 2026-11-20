@@ -1,0 +1,33 @@
+especificacion,indicador,media_con_PPT,media_sin_PPT,dif_simple,ee_simple,dif_ajustada,ee_ajustada,IC95_inf,IC95_sup,n,n_con_PPT
+A: PPT vs todos los demas,Afiliado a salud (%),90.6,17.59,73.02,3.71,66.45,4.19,58.24,74.66,6396,4103
+A: PPT vs todos los demas,de los afiliados: contributivo (%),79.66,82.96,-3.29,5.32,-2.37,4.85,-11.88,7.15,4015,3705
+A: PPT vs todos los demas,Afiliado a pension (%),13.11,1.87,11.24,1.05,10.44,1.24,8.01,12.87,6317,4028
+A: PPT vs todos los demas,Trabajo la semana pasada (%),66.93,62.82,4.11,2.77,3.21,2.69,-2.06,8.48,6443,4132
+A: PPT vs todos los demas,Buscando trabajo (%),4.18,6.73,-2.56,1.02,-2.17,1.17,-4.47,0.13,6443,4132
+A: PPT vs todos los demas,ocupados: contrato escrito (%),20.5,3.9,16.6,1.62,16.04,1.9,12.3,19.77,3922,2556
+A: PPT vs todos los demas,ocupados: horas semanales,53.25,54.36,-1.11,1.04,-1.8,1.11,-3.97,0.37,3922,2556
+A: PPT vs todos los demas,ocupados: lleva > 1 anio en el trabajo (%),71.92,61.48,10.43,3.43,0.32,3.15,-5.85,6.49,3922,2556
+A: PPT vs todos los demas,Cuenta en entidad financiera (%),54.77,11.37,43.4,2.16,37.89,2.59,32.83,42.96,6443,4132
+A: PPT vs todos los demas,Envio remesas el ultimo mes (%),26.8,25.88,0.92,3.65,-1.46,3.5,-8.32,5.41,6443,4132
+A: PPT vs todos los demas,Salud buena o muy buena (%),82.07,79.12,2.96,2.56,2.07,2.05,-1.94,6.08,6443,4132
+A: PPT vs todos los demas,Necesito servicio de salud y no pudo acceder (%),15.34,55.84,-40.49,5.18,-37.03,5.38,-47.58,-26.49,1403,945
+A: PPT vs todos los demas,Hogar: 3 comidas al dia o mas (%),75.22,73.9,1.32,2.96,3.86,2.69,-1.41,9.13,6441,4130
+A: PPT vs todos los demas,Hogar: dificultad para comprar alimentos (%),37.29,38.29,-1.0,3.21,-1.61,3.04,-7.56,4.35,6411,4105
+A: PPT vs todos los demas,Se ha sentido discriminado (%),26.74,24.63,2.11,3.0,-1.38,2.84,-6.95,4.2,6443,4132
+A: PPT vs todos los demas,Piensa permanecer en Colombia 1 anio (%),89.59,83.96,5.64,1.57,3.77,1.69,0.46,7.09,6443,4132
+B: PPT vs ningun permiso,Afiliado a salud (%),90.6,10.73,79.87,2.17,75.16,2.88,69.51,80.8,6193,4103
+B: PPT vs ningun permiso,de los afiliados: contributivo (%),79.66,77.77,1.9,5.9,2.16,5.93,-9.47,13.79,3871,3705
+B: PPT vs ningun permiso,Afiliado a pension (%),13.11,1.3,11.81,1.05,10.93,1.24,8.51,13.35,6114,4028
+B: PPT vs ningun permiso,Trabajo la semana pasada (%),66.93,61.38,5.56,2.54,4.34,2.8,-1.14,9.82,6239,4132
+B: PPT vs ningun permiso,Buscando trabajo (%),4.18,7.05,-2.87,1.06,-2.69,1.26,-5.17,-0.22,6239,4132
+B: PPT vs ningun permiso,ocupados: contrato escrito (%),20.5,3.3,17.2,1.64,16.35,1.96,12.51,20.2,3803,2556
+B: PPT vs ningun permiso,ocupados: horas semanales,53.25,54.23,-0.98,1.08,-1.76,1.15,-4.01,0.49,3803,2556
+B: PPT vs ningun permiso,ocupados: lleva > 1 anio en el trabajo (%),71.92,59.53,12.39,2.65,2.2,2.68,-3.04,7.44,3803,2556
+B: PPT vs ningun permiso,Cuenta en entidad financiera (%),54.77,10.48,44.29,2.19,37.98,2.38,33.32,42.64,6239,4132
+B: PPT vs ningun permiso,Envio remesas el ultimo mes (%),26.8,22.14,4.66,2.41,3.51,2.35,-1.1,8.11,6239,4132
+B: PPT vs ningun permiso,Salud buena o muy buena (%),82.07,78.62,3.46,2.63,3.13,1.98,-0.75,7.02,6239,4132
+B: PPT vs ningun permiso,Necesito servicio de salud y no pudo acceder (%),15.34,58.23,-42.89,5.63,-42.25,5.65,-53.33,-31.17,1339,945
+B: PPT vs ningun permiso,Hogar: 3 comidas al dia o mas (%),75.22,72.64,2.58,2.98,5.54,2.73,0.18,10.9,6237,4130
+B: PPT vs ningun permiso,Hogar: dificultad para comprar alimentos (%),37.29,39.28,-2.0,3.01,-3.38,2.75,-8.78,2.02,6208,4105
+B: PPT vs ningun permiso,Se ha sentido discriminado (%),26.74,25.98,0.76,3.05,-3.03,2.83,-8.58,2.52,6239,4132
+B: PPT vs ningun permiso,Piensa permanecer en Colombia 1 anio (%),89.59,83.25,6.35,1.55,4.71,1.64,1.5,7.92,6239,4132

@@ -1,0 +1,17 @@
+,valor
+masa_salarial_mensual_miles_millones_COP_2025,1150.06
+masa_salarial_anual_billones_COP_2025,13.8
+ocupados_venezolanos_miles_2025,877.39
+tasa_formalidad_pct_2025,20.77
+ingreso_medio_informales_COP,1199179.65
+ingreso_medio_formales_COP,1865886.09
+prima_formalidad_simple_pct,54.51
+prima_formalidad_ajustada_pct,28.96
+prima_ajustada_IC95_inf_pct,24.57
+prima_ajustada_IC95_sup_pct,33.5
+n_regresion_prima,20407.0
+EPM_cobertura_PPT_pct,65.6
+EPM_efecto_PPT_pension_ocupados_pp,14.84
+EPM_ee_pension_ocupados,1.85
+EPM_efecto_PPT_contrato_escrito_pp,16.01
+EPM_ee_contrato,1.9

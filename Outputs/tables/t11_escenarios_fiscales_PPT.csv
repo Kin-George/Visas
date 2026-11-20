@@ -1,0 +1,7 @@
+cobertura_PPT_pct,efecto_PPT_formalidad,trabajadores_que_se_formalizan_miles,nuevos_afiliados_salud_miles,d_aportes_salud_mil_millones,d_aportes_pension_mil_millones,d_IVA_mil_millones,d_costo_UPC_mil_millones,balance_amplio_mil_millones(aportes salud+IVA-UPC),balance_con_pension_mil_millones
+80.0,central,18.4,168.1,18.8,53.5,3.1,230.9,-209.0,-155.5
+80.0,inferior,13.9,168.1,14.2,40.4,2.3,230.9,-214.3,-173.9
+80.0,superior,22.9,168.1,23.4,66.6,3.8,230.9,-203.6,-137.1
+100.0,central,43.9,401.5,45.0,127.9,7.3,551.6,-499.3,-371.4
+100.0,inferior,33.2,401.5,34.0,96.6,5.5,551.6,-512.0,-415.4
+100.0,superior,54.6,401.5,56.0,159.1,9.1,551.6,-486.5,-327.4

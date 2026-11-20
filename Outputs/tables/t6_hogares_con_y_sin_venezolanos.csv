@@ -1,0 +1,11 @@
+anio,tipo,hogares_miles,personas_por_hogar,ocupados_por_hogar,ing_lab_pc_mediano_smmlv,pct_personas_ing_pc_<0.5smmlv,pct_personas_ing_pc_<0.25smmlv,pct_hogares_sin_ocupados
+2022.0,hogar con venezolano(s),783.7,3.73,1.64,0.3,75.22,40.56,4.07
+2022.0,hogar sin venezolanos,16197.47,2.94,1.28,0.32,65.42,40.42,17.09
+2023.0,hogar con venezolano(s),711.8,3.68,1.63,0.3,74.0,40.23,4.82
+2023.0,hogar sin venezolanos,16728.33,2.89,1.29,0.32,65.58,39.95,16.85
+2024.0,hogar con venezolano(s),779.57,3.62,1.62,0.31,72.75,39.64,4.54
+2024.0,hogar sin venezolanos,17125.1,2.85,1.27,0.32,65.54,40.66,17.53
+2025.0,hogar con venezolano(s),761.7,3.54,1.61,0.33,71.06,36.32,4.52
+2025.0,hogar sin venezolanos,17612.87,2.8,1.28,0.35,63.48,37.45,16.78
+2026.0,hogar con venezolano(s),765.75,3.53,1.6,0.31,72.08,38.71,4.83
+2026.0,hogar sin venezolanos,18000.63,2.77,1.27,0.34,64.42,38.7,17.1

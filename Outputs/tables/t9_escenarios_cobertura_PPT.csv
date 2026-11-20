@@ -1,0 +1,28 @@
+cobertura_PPT_pct,supuesto_efecto_PPT_formalidad,prima_salarial,delta_tasa_formalidad_pp,trabajadores_que_se_formalizan_miles,aumento_masa_salarial_mensual_miles_millones_COP,aumento_pct_de_la_masa_salarial
+65.6,PPT -> pension: punto,prima 0%,0.0,0.0,0.0,0.0
+65.6,PPT -> pension: punto,prima ajustada,0.0,0.0,0.0,0.0
+65.6,PPT -> pension: punto,prima simple,0.0,0.0,0.0,0.0
+65.6,PPT -> pension: limite inferior,prima 0%,0.0,0.0,0.0,0.0
+65.6,PPT -> pension: limite inferior,prima ajustada,0.0,0.0,0.0,0.0
+65.6,PPT -> pension: limite inferior,prima simple,0.0,0.0,0.0,0.0
+65.6,PPT -> pension: limite superior,prima 0%,0.0,0.0,0.0,0.0
+65.6,PPT -> pension: limite superior,prima ajustada,0.0,0.0,0.0,0.0
+65.6,PPT -> pension: limite superior,prima simple,0.0,0.0,0.0,0.0
+80.0,PPT -> pension: punto,prima 0%,2.138,18.755,0.0,0.0
+80.0,PPT -> pension: punto,prima ajustada,2.138,18.755,6.512,0.566
+80.0,PPT -> pension: punto,prima simple,2.138,18.755,12.261,1.066
+80.0,PPT -> pension: limite inferior,prima 0%,1.616,14.18,0.0,0.0
+80.0,PPT -> pension: limite inferior,prima ajustada,1.616,14.18,4.924,0.428
+80.0,PPT -> pension: limite inferior,prima simple,1.616,14.18,9.27,0.806
+80.0,PPT -> pension: limite superior,prima 0%,2.659,23.331,0.0,0.0
+80.0,PPT -> pension: limite superior,prima ajustada,2.659,23.331,8.101,0.704
+80.0,PPT -> pension: limite superior,prima simple,2.659,23.331,15.252,1.326
+100.0,PPT -> pension: punto,prima 0%,5.106,44.8,0.0,0.0
+100.0,PPT -> pension: punto,prima ajustada,5.106,44.8,15.556,1.353
+100.0,PPT -> pension: punto,prima simple,5.106,44.8,29.287,2.547
+100.0,PPT -> pension: limite inferior,prima 0%,3.861,33.872,0.0,0.0
+100.0,PPT -> pension: limite inferior,prima ajustada,3.861,33.872,11.761,1.023
+100.0,PPT -> pension: limite inferior,prima simple,3.861,33.872,22.143,1.925
+100.0,PPT -> pension: limite superior,prima 0%,6.352,55.729,0.0,0.0
+100.0,PPT -> pension: limite superior,prima ajustada,6.352,55.729,19.351,1.683
+100.0,PPT -> pension: limite superior,prima simple,6.352,55.729,36.432,3.168

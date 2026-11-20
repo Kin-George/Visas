@@ -1,0 +1,25 @@
+grupo,zona,educacion,n_muestra,mediana_ingreso_smmlv
+Colombianos,urbano,Todos,481698,1.012
+Colombianos,urbano,Hasta primaria,74154,0.667
+Colombianos,urbano,Secundaria,44233,0.813
+Colombianos,urbano,Media,165766,1.0
+Colombianos,urbano,Técnica o tecnológica,73097,1.124
+Colombianos,urbano,Universitaria o más,124448,1.999
+Colombianos,rural,Todos,66382,0.571
+Colombianos,rural,Hasta primaria,31875,0.492
+Colombianos,rural,Secundaria,8918,0.571
+Colombianos,rural,Media,18418,0.685
+Colombianos,rural,Técnica o tecnológica,3721,0.999
+Colombianos,rural,Universitaria o más,3450,1.428
+Venezolanos,urbano,Todos,18833,0.914
+Venezolanos,urbano,Hasta primaria,2263,0.801
+Venezolanos,urbano,Secundaria,4096,0.843
+Venezolanos,urbano,Media,9281,0.914
+Venezolanos,urbano,Técnica o tecnológica,1233,0.999
+Venezolanos,urbano,Universitaria o más,1960,1.028
+Venezolanos,rural,Todos,1313,0.843
+Venezolanos,rural,Hasta primaria,330,0.742
+Venezolanos,rural,Secundaria,372,0.8
+Venezolanos,rural,Media,508,0.927
+Venezolanos,rural,Técnica o tecnológica,35,
+Venezolanos,rural,Universitaria o más,68,

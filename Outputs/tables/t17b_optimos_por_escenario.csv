@@ -1,0 +1,19 @@
+theta,criterio,tarifa_optima_USD,conversion_en_el_optimo,valor_USD_millones
+1,recaudo de la Cancillería,270.0,0.378,117.489
+1,recaudo + derrame (literatura),0.0,0.85,958.577
+1,recaudo + costo de salud (contabilidad A),700.0,0.079,-52.23
+1,en USD 464 (aprox.),460.0,0.192,101.767
+1,en USD 232 (aprox.),230.0,0.442,117.209
+1,en USD 56 (aprox.),60.0,0.783,54.112
+2,recaudo de la Cancillería,490.0,0.419,236.851
+2,recaudo + derrame (literatura),140.0,0.77,992.126
+2,recaudo + costo de salud (contabilidad A),700.0,0.284,-188.781
+2,en USD 464 (aprox.),460.0,0.442,234.418
+2,en USD 232 (aprox.),230.0,0.697,184.717
+2,en USD 56 (aprox.),60.0,0.802,55.42
+3,recaudo de la Cancillería,690.0,0.442,351.627
+3,recaudo + derrame (literatura),270.0,0.74,1064.109
+3,recaudo + costo de salud (contabilidad A),700.0,0.431,-286.408
+3,en USD 464 (aprox.),460.0,0.607,321.931
+3,en USD 232 (aprox.),230.0,0.761,201.748
+3,en USD 56 (aprox.),60.0,0.806,55.705
