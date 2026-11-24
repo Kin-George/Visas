@@ -1,6 +1,6 @@
 """Visa-R / 19: en qué año cumplen 5 años con PPT (requisito de la Visa R, art. 91) los venezolanos que hoy tienen PPT.
 Fuente: EPM VIII-2025 (DANE), año y mes desde el que tiene el PPT (Ide14_2, Ide14_3), personas de nacionalidad venezolana con PPT (Ide14__2 = 1).
-Escala: 1.961.974 venezolanos con PPT autorizado (Migración Colombia, tablero OM3, corte febrero de 2026).
+Escala: 1.975.752 venezolanos con PPT autorizado (Migración Colombia, tablero OM3, corte octubre de 2026).
 Salidas: Outputs/Figures/pr6_anios_elegibilidad.png y Outputs/tables/t21_elegibilidad_por_anio.csv"""
 from pathlib import Path
 import numpy as np
@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 ROOT = Path(__file__).resolve().parents[1]
 TAB, FIG = ROOT / "Outputs" / "tables", ROOT / "Outputs" / "Figures"
 NAVY, LNAVY, ACC, INK, GRAY = "#1f3b5c", "#9fb3c8", "#a4472f", "#222222", "#6b6b6b"
-N_PPT = 1_961_974                        # PPT autorizado, Migración Colombia (OM3), corte febrero 2026
+N_PPT = 1_975_752                        # PPT autorizado, Migración Colombia (tablero OM3), corte octubre 2026 (dato del equipo)
 HOY = (2026, 11)                          # fecha de referencia para "ya cumplen"
 NL = chr(10)
 plt.rcParams.update({"font.family": "serif", "font.serif": ["Times New Roman", "DejaVu Serif"], "font.size": 10, "text.color": INK,
@@ -48,7 +48,7 @@ fig.text(0.03, 0.95, "¿En qué año cumplen 5 años con PPT los venezolanos que
 fig.text(0.03, 0.82, "Personas que cumplen cada año el requisito de tiempo de la Visa R (5 años con PPT)." + NL +
          f"A noviembre de 2026 ya lo cumplen unas {miles(ya * N_PPT / 1e3)} mil ({100 * ya:.0f} %). El PPT vence el 30 de mayo de 2031.",
          fontsize=9.5, ha="left", color=INK)
-fig.text(0.03, 0.02, f"Fuente: EPM VIII-2025 (DANE): año desde el que tiene el PPT + 5 años; escala de {miles(N_PPT)} PPT autorizados (Migración Colombia, feb. 2026)." + NL +
+fig.text(0.03, 0.02, f"Fuente: EPM VIII-2025 (DANE): año desde el que tiene el PPT + 5 años; escala de {miles(N_PPT)} PPT autorizados (Migración Colombia, oct. 2026)." + NL +
          "No cuenta el tiempo previo con PEP, por lo que subestima la elegibilidad temprana. «Antes de 2026»: reportan un año anterior a 2021 (probablemente su PEP).",
          fontsize=7, color=GRAY, ha="left")
 fig.savefig(FIG / "pr6_anios_elegibilidad.png", dpi=250, facecolor="white"); plt.close(fig)
