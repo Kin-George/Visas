@@ -26,7 +26,7 @@ e["anio_eleg"] = e.Ide14_2 + 5
 e["w"] = e.FEX_PER / e.FEX_PER.sum()
 ya = float(e.w[(e.anio_eleg < HOY[0]) | ((e.anio_eleg == HOY[0]) & (e.Ide14_3 <= HOY[1]))].sum())
 
-grupos = [("2026" + NL + "o antes", e.anio_eleg <= 2026), ("2027", e.anio_eleg == 2027), ("2028", e.anio_eleg == 2028), ("2029-2030", e.anio_eleg >= 2029)]
+grupos = [("Ya pueden" + NL + "pedirla (2026)", e.anio_eleg <= 2026), ("2027", e.anio_eleg == 2027), ("2028", e.anio_eleg == 2028), ("2029-2030", e.anio_eleg >= 2029)]
 sh = np.array([float(e.w[m].sum()) for _, m in grupos]); n = sh * N_PPT; acum = np.cumsum(sh)
 pd.DataFrame({"anio_en_que_cumple_5_anios": [g.replace(NL, " ") for g, _ in grupos], "pct_titulares": 100 * sh, "personas_escala_oficial": n.round(),
               "pct_acumulado": 100 * acum}).round(1).to_csv(TAB / "t21_elegibilidad_por_anio.csv", index=False)
