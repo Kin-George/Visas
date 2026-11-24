@@ -26,30 +26,20 @@ e["anio_eleg"] = e.Ide14_2 + 5
 e["w"] = e.FEX_PER / e.FEX_PER.sum()
 ya = float(e.w[(e.anio_eleg < HOY[0]) | ((e.anio_eleg == HOY[0]) & (e.Ide14_3 <= HOY[1]))].sum())
 
-grupos = [("Antes de" + NL + "2026", e.anio_eleg < 2026), ("2026", e.anio_eleg == 2026), ("2027", e.anio_eleg == 2027),
-          ("2028", e.anio_eleg == 2028), ("2029-2030", e.anio_eleg >= 2029)]
+grupos = [("2026" + NL + "o antes", e.anio_eleg <= 2026), ("2027", e.anio_eleg == 2027), ("2028", e.anio_eleg == 2028), ("2029-2030", e.anio_eleg >= 2029)]
 sh = np.array([float(e.w[m].sum()) for _, m in grupos]); n = sh * N_PPT; acum = np.cumsum(sh)
 pd.DataFrame({"anio_en_que_cumple_5_anios": [g.replace(NL, " ") for g, _ in grupos], "pct_titulares": 100 * sh, "personas_escala_oficial": n.round(),
               "pct_acumulado": 100 * acum}).round(1).to_csv(TAB / "t21_elegibilidad_por_anio.csv", index=False)
 
-fig, ax = plt.subplots(figsize=(6.4, 4.1)); fig.subplots_adjust(left=0.13, right=0.97, top=0.76, bottom=0.25)
+fig, ax = plt.subplots(figsize=(6.4, 3.9)); fig.subplots_adjust(left=0.04, right=0.96, top=0.8, bottom=0.22)
 x = np.arange(len(grupos))
-ax.bar(x, n / 1e3, 0.62, color=[LNAVY, NAVY, NAVY, LNAVY, LNAVY])
+ax.bar(x, n / 1e3, 0.6, color=[NAVY, ACC, NAVY, NAVY])
 for xi, v in zip(x, n):
-    ax.text(xi, v / 1e3 + 18, f"{miles(v / 1e3)} mil", ha="center", va="bottom", fontsize=11, fontweight="bold")
-ax.set_xticks(x); ax.set_xticklabels([g for g, _ in grupos], fontsize=10)
-for xi, a in zip(x, acum):
-    ax.text(xi, -205, f"{100 * a:.0f} %", ha="center", va="top", fontsize=9.5, color=GRAY)
-ax.text(-0.5, -205, "Acumulado", ha="right", va="top", fontsize=9.5, color=GRAY)
-ax.set_ylim(0, 1150); ax.set_xlim(-0.5, len(grupos) - 0.4)
-ax.annotate("Pico: más de 1 millón" + NL + "de personas en 2027", xy=(2.33, 960), xytext=(3.0, 1000), fontsize=9.5, color=ACC, va="center",
-            arrowprops=dict(arrowstyle="-", color=ACC, lw=0.8))
-fig.text(0.03, 0.95, "¿En qué año cumplen 5 años con PPT los venezolanos que hoy lo tienen?", fontsize=12.5, fontweight="bold", ha="left")
-fig.text(0.03, 0.82, "Personas que cumplen cada año el requisito de tiempo de la Visa R (5 años con PPT)." + NL +
-         f"A noviembre de 2026 ya lo cumplen unas {miles(ya * N_PPT / 1e3)} mil ({100 * ya:.0f} %). El PPT vence el 30 de mayo de 2031.",
-         fontsize=9.5, ha="left", color=INK)
-fig.text(0.03, 0.02, f"Fuente: EPM VIII-2025 (DANE): año desde el que tiene el PPT + 5 años; escala de {miles(N_PPT)} PPT autorizados (Migración Colombia, oct. 2026)." + NL +
-         "No cuenta el tiempo previo con PEP, por lo que subestima la elegibilidad temprana. «Antes de 2026»: reportan un año anterior a 2021 (probablemente su PEP).",
-         fontsize=7, color=GRAY, ha="left")
+    ax.text(xi, v / 1e3 + 20, f"{miles(v / 1e3)} mil", ha="center", va="bottom", fontsize=13, fontweight="bold", color=ACC if xi == 1 else INK)
+ax.set_xticks(x); ax.set_xticklabels([g for g, _ in grupos], fontsize=11); ax.set_xlabel("Año en que cumplen 5 años con PPT", fontsize=9.5, color=GRAY, labelpad=6)
+ax.set_ylim(0, 1180); ax.set_xlim(-0.55, len(grupos) - 0.45)
+fig.text(0.04, 0.94, "Demanda potencial de Visas R: personas con PPT que cumplen 5 años", fontsize=13, fontweight="bold", ha="left")
+fig.text(0.04, 0.875, "Más de 1 millón de personas podrá solicitar la Visa R en 2027.", fontsize=11, ha="left", color=ACC)
+fig.text(0.04, 0.03, "Fuente: EPM VIII-2025 (DANE) y Migración Colombia (PPT autorizados, octubre de 2026).", fontsize=8, color=GRAY, ha="left")
 fig.savefig(FIG / "pr6_anios_elegibilidad.png", dpi=250, facecolor="white"); plt.close(fig)
 print(pd.read_csv(TAB / "t21_elegibilidad_por_anio.csv").to_string(), NL + "ya cumplen:", round(100 * ya, 1), miles(ya * N_PPT))
