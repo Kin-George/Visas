@@ -26,42 +26,56 @@ g = g[g.anio == 2026][["mes", "fex_c18", "pais_nac", "nacionalidad", "oci", "ing
 g["w"] = g.fex_c18 / g.mes.nunique()
 v = g[(g.pais_nac == 862) & (g.nacionalidad == 3) & (g.oci == 1) & (g.inglabo > 0)]
 ING = float(np.average(v.inglabo, weights=v.w))
+ING_USD = ING / TRM
 TASAS = [0.10, 0.20, 0.30]
-meses = {t: FEE / (t * ING) for t in TASAS}
-pd.DataFrame({"tasa_ahorro": TASAS, "ahorro_mensual_COP": [t * ING for t in TASAS], "meses_persona": [meses[t] for t in TASAS],
+meses = {t: FEE_USD / (t * ING_USD) for t in TASAS}
+pd.DataFrame({"tasa_ahorro": TASAS, "ahorro_mensual_USD": [t * ING_USD for t in TASAS], "meses_persona": [meses[t] for t in TASAS],
               "meses_hogar_2_28_venezolanos": [meses[t] * VEN_HOG for t in TASAS]}).round(2).to_csv(TAB / "t23_meses_ahorro.csv", index=False)
 FUENTE = "Fuente: GEIH-DANE 2026 (enero-agosto) y Cancillería (tarifa de la Visa R)."
+AH = 0.10 * ING_USD
 
-# =============================================================== propuesta A: meses de ahorro según cuánto ahorre
-fig, ax = plt.subplots(figsize=(6.4, 3.9)); fig.subplots_adjust(left=0.05, right=0.97, top=0.76, bottom=0.2)
-x = np.arange(3); m = [meses[t] for t in TASAS]
-ax.bar(x, m, 0.55, color=[ACC, NAVY, NAVY])
-for xi, mm in zip(x, m):
-    ax.text(xi, mm + 0.2, f"{pc(mm)} meses", ha="center", va="bottom", fontsize=13, fontweight="bold", color=ACC if xi == 0 else INK)
-ax.set_xticks(x); ax.set_xticklabels([f"Ahorra el {int(t * 100)} %" + NL + f"(COP {miles(t * ING / 1e3)} mil al mes)" for t in TASAS], fontsize=10.5)
-ax.set_yticks([]); ax.spines["left"].set_visible(False); ax.set_ylim(0, 11.5); ax.set_xlim(-0.5, 2.5)
-fig.text(0.03, 0.94, f"Un venezolano necesita más de {int(meses[0.10])} meses de ahorro para pagar la Visa R", fontsize=13, fontweight="bold", ha="left")
-fig.text(0.03, 0.875, f"Si ahorra el 10 % de su ingreso promedio (COP {pc(ING / 1e6, 2)} millones al mes). La visa cuesta COP {pc(FEE / 1e6, 2)} millones.",
-         fontsize=10, ha="left", color=ACC)
+# =============================================================== propuesta A: cuánto lleva y cuánto le falta, mes a mes (ahorro del 10 %)
+n = int(np.ceil(FEE_USD / AH)); mm_ = np.arange(1, n + 1); lleva = AH * mm_
+fig, ax = plt.subplots(figsize=(6.6, 4.0)); fig.subplots_adjust(left=0.04, right=0.97, top=0.76, bottom=0.17)
+for x_, l in zip(mm_, lleva):
+    ok = l >= FEE_USD
+    ax.bar(x_, min(l, FEE_USD) if not ok else l, 0.7, color=ACC if ok else NAVY)
+    if not ok:
+        ax.bar(x_, FEE_USD - l, 0.7, bottom=l, facecolor="white", edgecolor=LNAVY, hatch="////", linewidth=0.6)
+        ax.text(x_, FEE_USD + 12, f"faltan" + NL + f"USD {miles(FEE_USD - l)}", ha="center", va="bottom", fontsize=8, color=GRAY)
+        ax.text(x_, l - 10 if l > 60 else l + 8, f"USD {miles(l)}", ha="center", va="top" if l > 60 else "bottom", fontsize=7.8,
+                color="white" if l > 60 else NAVY, fontweight="bold")
+    else:
+        ax.text(x_, l + 12, f"¡Alcanza!" + NL + f"USD {miles(l)}", ha="center", va="bottom", fontsize=9, color=ACC, fontweight="bold")
+ax.axhline(FEE_USD, color=INK, lw=1.0, ls="--")
+ax.text(n + 0.5, FEE_USD, "Visa R:" + NL + f"USD {FEE_USD}", ha="left", va="center", fontsize=9.5, color=INK, fontweight="bold", bbox=dict(facecolor="white", edgecolor="none", pad=1.5))
+ax.set_xticks(mm_); ax.set_xticklabels([f"Mes {k}" for k in mm_], fontsize=9); ax.set_yticks([]); ax.spines["left"].set_visible(False)
+ax.set_ylim(0, 620); ax.set_xlim(0.4, n + 1.5)
+fig.text(0.03, 0.94, f"Ahorrando USD {miles(AH)} al mes, un venezolano tarda {n} meses en pagar la Visa R", fontsize=12.5, fontweight="bold", ha="left")
+fig.text(0.03, 0.875, f"Ahorro acumulado y lo que le falta, si guarda el 10 % de su ingreso promedio (USD {miles(ING_USD)} al mes).", fontsize=10,
+         ha="left", color=ACC)
 fig.text(0.03, 0.03, FUENTE, fontsize=7.8, color=GRAY, ha="left")
 fig.savefig(FIG / "pr9a_meses_ahorro.png", dpi=250, facecolor="white"); plt.close(fig)
 
 # =============================================================== propuesta B: calendario de ahorro, persona y hogar (10 %)
 t = 0.10; mp, mh = meses[t], meses[t] * VEN_HOG; tot = int(np.ceil(mh))
-fig, ax = plt.subplots(figsize=(6.6, 3.4)); fig.subplots_adjust(left=0.2, right=0.98, top=0.7, bottom=0.14)
-for row, (nom, mm) in enumerate([("Un hogar" + NL + f"({pc(VEN_HOG)} venezolanos)", mh), ("Una persona", mp)]):
+fig, ax = plt.subplots(figsize=(6.6, 3.5)); fig.subplots_adjust(left=0.22, right=0.98, top=0.7, bottom=0.12)
+filas = [("Un hogar" + NL + f"({pc(VEN_HOG)} venezolanos)", mh, f"Meta: USD {miles(FEE_USD * VEN_HOG)}", ACC),
+         ("Una persona", mp, f"Meta: USD {FEE_USD}", NAVY)]
+for row, (nom, mm, meta, col) in enumerate(filas):
     for k in range(tot):
         fill = min(max(mm - k, 0), 1)
-        ax.add_patch(Rectangle((k + 0.06, row - 0.32), 0.88, 0.64, facecolor=LGRAY, edgecolor="none"))
+        ax.add_patch(Rectangle((k + 0.06, row - 0.3), 0.88, 0.6, facecolor=LGRAY, edgecolor="none"))
         if fill > 0:
-            ax.add_patch(Rectangle((k + 0.06, row - 0.32), 0.88 * fill, 0.64, facecolor=ACC if row == 0 else NAVY, edgecolor="none"))
-    ax.text(-0.4, row, nom, ha="right", va="center", fontsize=10.5)
-    ax.text(tot + 0.4, row, f"{pc(mm, 0)} meses", ha="left", va="center", fontsize=13, fontweight="bold", color=ACC if row == 0 else NAVY)
+            ax.add_patch(Rectangle((k + 0.06, row - 0.3), 0.88 * fill, 0.6, facecolor=col, edgecolor="none"))
+    ax.text(-0.4, row + 0.08, nom, ha="right", va="center", fontsize=10.5)
+    ax.text(-0.4, row - 0.38 if row == 1 else row - 0.42, meta, ha="right", va="center", fontsize=9, color=GRAY)
+    ax.text(tot + 0.4, row, f"{int(np.ceil(mm))} meses", ha="left", va="center", fontsize=13, fontweight="bold", color=col)
 ax.set_xlim(0, tot + 4.6); ax.set_ylim(-0.6, 1.6); ax.axis("off")
 fig.text(0.03, 0.93, "Reunir la tarifa de la Visa R toma casi 2 años a un hogar venezolano", fontsize=13, fontweight="bold", ha="left")
-fig.text(0.03, 0.86, f"Meses de ahorro si cada persona guarda el 10 % de su ingreso promedio (COP {pc(ING / 1e6, 2)} millones al mes).", fontsize=10,
+fig.text(0.03, 0.86, f"Meses de ahorro si cada persona guarda USD {miles(AH)} al mes (10 % de su ingreso promedio de USD {miles(ING_USD)}).", fontsize=10,
          ha="left", color=ACC)
 fig.text(0.03, 0.79, "Cada cuadro es un mes.", fontsize=9.5, ha="left", color=GRAY)
 fig.text(0.03, 0.03, FUENTE, fontsize=7.8, color=GRAY, ha="left")
 fig.savefig(FIG / "pr9b_ahorro_persona_hogar.png", dpi=250, facecolor="white"); plt.close(fig)
-print("ingreso promedio", round(ING), "tarifa COP", FEE, "pct", round(100 * FEE / ING, 1), {k: round(v_, 1) for k, v_ in meses.items()}, "hogar 10%", round(mh, 1))
+print("ingreso USD", round(ING_USD, 1), "ahorro mes", round(AH, 1), "meses", round(mp, 2), "hogar", round(mh, 1), "meta hogar", FEE_USD * VEN_HOG)
