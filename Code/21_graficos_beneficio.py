@@ -62,19 +62,21 @@ fig.text(0.03, 0.015, "Fuente: Ibáñez, Moya, Ortega, Rozo y Urbina (2025), Jou
          fontsize=7.8, color=GRAY, ha="left")
 fig.savefig(FIG / "pr8a_como_se_calcula_beneficio.png", dpi=250, facecolor="white"); plt.close(fig)
 
-# =============================================================== gráfico B: ahorro acumulado para el país
-anios = np.arange(1, 6); acum = N_QUEDAN * ANUAL * anios / 1e6
-fig, ax = plt.subplots(figsize=(6.4, 3.9)); fig.subplots_adjust(left=0.05, right=0.97, top=0.78, bottom=0.17)
-ax.bar(anios, acum, 0.6, color=[LNAVY] * 4 + [ACC])
-for x_, a in zip(anios, acum):
-    ax.text(x_, a + 25, f"USD {miles(a)}" + NL + "millones",
-            ha="center", va="bottom", fontsize=10.5, fontweight="bold", color=ACC if x_ == 5 else INK)
-ax.set_xticks(anios); ax.set_xticklabels([f"Año {a}" for a in anios], fontsize=11); ax.set_yticks([]); ax.spines["left"].set_visible(False)
-ax.set_ylim(0, 2150); ax.set_xlim(0.4, 5.6)
-fig.text(0.03, 0.94, "Mantener la regularidad le ahorra al país cerca de USD 1.700 millones en 5 años", fontsize=12.5, fontweight="bold", ha="left")
-fig.text(0.03, 0.875, "Ahorro fiscal acumulado si las 1,77 millones de personas con PPT que piensan quedarse siguen regulares.",
-         fontsize=10, ha="left", color=ACC)
+# =============================================================== gráfico B: costo neto anual para el Estado, regulares frente a irregulares
+c_reg, c_irr = NETO[1] / VEN_HOG * N_QUEDAN / 1e6, NETO[0] / VEN_HOG * N_QUEDAN / 1e6
+fig, ax = plt.subplots(figsize=(6.4, 3.9)); fig.subplots_adjust(left=0.05, right=0.97, top=0.78, bottom=0.2)
+x = [0, 1]; vals = [c_reg, c_irr]
+ax.bar(x, vals, 0.5, color=[NAVY, LGRAY])
+for xi, v, c in zip(x, vals, [NAVY, GRAY]):
+    ax.text(xi, v + 18, f"USD {miles(v)} millones", ha="center", va="bottom", fontsize=13, fontweight="bold", color=c)
+ax.set_xticks(x); ax.set_xticklabels(["Si siguen" + NL + "en situación regular", "Si pierden" + NL + "la regularidad"], fontsize=11)
+ax.set_yticks([]); ax.spines["left"].set_visible(False); ax.set_ylim(0, 1000); ax.set_xlim(-0.5, 1.9)
+ax.annotate("", xy=(1.38, c_reg), xytext=(1.38, c_irr), arrowprops=dict(arrowstyle="<->", color=ACC, lw=1.3))
+ax.plot([0.25, 1.38], [c_reg, c_reg], color=ACC, lw=0.7, ls=":")
+ax.text(1.43, (c_reg + c_irr) / 2, f"USD {miles(c_irr - c_reg)}" + NL + "millones" + NL + "más cada año", fontsize=11, color=ACC, fontweight="bold", va="center")
+fig.text(0.03, 0.94, "Si pierden la regularidad, al Estado le cuestan USD 346 millones más al año", fontsize=12.5, fontweight="bold", ha="left")
+fig.text(0.03, 0.875, "Costo neto anual para el Estado de las 1,77 millones de personas con PPT que piensan quedarse.", fontsize=10, ha="left", color=ACC)
 fig.text(0.03, 0.03, "Fuente: Ibáñez et al. (2025), JEEA; GEIH-DANE 2026; EPM VIII-2025 (DANE); Migración Colombia (octubre de 2026).",
          fontsize=7.8, color=GRAY, ha="left")
-fig.savefig(FIG / "pr8b_ahorro_acumulado_pais.png", dpi=250, facecolor="white"); plt.close(fig)
-print("personas", round(N_QUEDAN), "anual M", round(N_QUEDAN * ANUAL / 1e6, 1), "acum", acum.round(1))
+fig.savefig(FIG / "pr8b_costo_regular_vs_irregular.png", dpi=250, facecolor="white"); plt.close(fig)
+print("personas", round(N_QUEDAN), "costo regular M", round(c_reg), "irregular M", round(c_irr), "diferencia", round(c_irr - c_reg))
