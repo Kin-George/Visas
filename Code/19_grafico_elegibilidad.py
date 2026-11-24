@@ -42,4 +42,29 @@ fig.text(0.04, 0.94, "Demanda potencial de Visas R: personas con PPT que cumplen
 fig.text(0.04, 0.875, "Más de 1 millón de personas podrá solicitar la Visa R en 2027.", fontsize=11, ha="left", color=ACC)
 fig.text(0.04, 0.03, "Fuente: EPM VIII-2025 (DANE) y Migración Colombia (PPT autorizados, octubre de 2026).", fontsize=8, color=GRAY, ha="left")
 fig.savefig(FIG / "pr6_anios_elegibilidad.png", dpi=250, facecolor="white"); plt.close(fig)
+
+# ---------------------------------------------------------------- versión 2: acumulado (cuántos podrán pedirla a cada fecha)
+mill = lambda v: f"{v / 1e6:.1f}".replace(".", ",") + " millones" if v >= 1e6 else f"{miles(v / 1e3)} mil"
+labs2 = ["Fin de 2026", "Fin de 2027", "Fin de 2028", "Fin de 2030"]
+prev = np.r_[0, np.cumsum(n)[:-1]]; tot = np.cumsum(n)
+fig, ax = plt.subplots(figsize=(6.4, 3.9)); fig.subplots_adjust(left=0.04, right=0.96, top=0.8, bottom=0.17)
+x = np.arange(len(labs2))
+ax.bar(x, prev / 1e3, 0.6, color=LNAVY)
+ax.bar(x, n / 1e3, 0.6, bottom=prev / 1e3, color=[NAVY, ACC, NAVY, NAVY])
+for xi, p, v, t in zip(x, prev, n, tot):
+    ax.text(xi, t / 1e3 + 25, mill(t), ha="center", va="bottom", fontsize=12.5, fontweight="bold", color=ACC if xi == 1 else INK)
+    if xi == 0:
+        continue
+    if v > 150e3:
+        ax.text(xi, (p + v / 2) / 1e3, f"+{miles(v / 1e3)} mil", ha="center", va="center", fontsize=10, color="white", fontweight="bold")
+    else:
+        ax.text(xi + 0.33, t / 1e3 - 40, f"+{miles(v / 1e3)} mil", ha="left", va="center", fontsize=9, color=NAVY)
+ax.set_xticks(x); ax.set_xticklabels(labs2, fontsize=11)
+ax.set_ylim(0, 2250); ax.set_xlim(-0.55, len(labs2) - 0.3)
+ax.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=LNAVY), plt.Rectangle((0, 0), 1, 1, color=NAVY)],
+          labels=["Ya podían pedirla", "Se suman ese año"], loc="upper left", frameon=False, fontsize=9.5, handlelength=1.2)
+fig.text(0.04, 0.94, "¿Cuántas personas con PPT podrán pedir la Visa R?", fontsize=13, fontweight="bold", ha="left")
+fig.text(0.04, 0.875, "En 2027 la cifra casi se triplica: pasa de 571 mil a 1,6 millones de personas.", fontsize=11, ha="left", color=ACC)
+fig.text(0.04, 0.03, "Fuente: EPM VIII-2025 (DANE) y Migración Colombia (PPT autorizados, octubre de 2026).", fontsize=8, color=GRAY, ha="left")
+fig.savefig(FIG / "pr6b_demanda_acumulada.png", dpi=250, facecolor="white"); plt.close(fig)
 print(pd.read_csv(TAB / "t21_elegibilidad_por_anio.csv").to_string(), NL + "ya cumplen:", round(100 * ya, 1), miles(ya * N_PPT))
