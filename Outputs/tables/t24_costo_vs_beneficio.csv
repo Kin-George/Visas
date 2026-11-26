@@ -1,4 +1,4 @@
-escenario,personas_adicionales,consumo_adicional_USD_M_anual,ahorro_fiscal_USD_M_anual,beneficio_total_USD_M_anual,veces_el_recaudo_de_5_anios
-Conservador,122340,69.0,24.3,93.3,4.5
-Intermedio,309329,174.5,61.3,235.9,11.4
-Optimista,663951,374.6,131.7,506.2,24.5
+escenario,con_visa_a_may_2031,personas_adicionales,recaudo_Cancilleria_USD_M_5_anios,consumo_adicional_USD_M_anual,ahorro_fiscal_USD_M_anual,beneficio_total_USD_M_anual
+Se mantiene la tarifa,53733,0,20.7,0.0,0.0,0.0
+"Sin tarifa, 50 % de la demanda",885068,831335,0.0,469.0,164.8,633.9
+"Sin tarifa, 80 % de la demanda",1416109,1362376,0.0,768.6,270.1,1038.8
