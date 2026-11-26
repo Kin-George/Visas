@@ -112,3 +112,33 @@ fig.savefig(FIG / "pr12c_beneficios_residencia.png", dpi=250, facecolor="white")
 print("por persona USD: ingreso", round(usd(ing_irr)), round(usd(ing_reg)), "consumo", round(usd(cons_irr)), round(usd(cons_reg)), "imp", round(imp_irr), round(imp_reg),
       "| PIB pp", round(pib_pp), "| perdida tarifa USD M", round(perdida / 1e6), round(100 * perdida / pib_usd, 3),
       "| beneficio 50/80 PIB", round(pib50 / 1e6), round(pib80 / 1e6), round(100 * pib50 / pib_usd, 3), round(100 * pib80 / pib_usd, 3))
+
+# =============================================================== D. toda la historia en una figura (dos paneles)
+fig = plt.figure(figsize=(10.5, 4.9))
+gl = fig.add_axes([0.04, 0.25, 0.36, 0.48]); gr = fig.add_axes([0.53, 0.25, 0.42, 0.48])
+# panel izquierdo: por persona
+for i, (lab, a, b) in enumerate(conc):
+    gl.bar(i - 0.19, a, 0.36, color=LGRAY); gl.bar(i + 0.19, b, 0.36, color=BLUE)
+    gl.text(i - 0.19, a + 30, miles(a), ha="center", va="bottom", fontsize=9, color=GRAY)
+    gl.text(i + 0.19, b + 30, miles(b), ha="center", va="bottom", fontsize=9.5, color=BLUE, fontweight="bold")
+    gl.text(i, max(a, b) + 260, f"+{100 * (b / a - 1):.0f} %", ha="center", va="bottom", fontsize=13, color=NAVY, fontweight="bold")
+gl.set_xticks(range(3)); gl.set_xticklabels(["Ingreso" + NL + "laboral", "Consumo", "Impuestos" + NL + "y aportes"], fontsize=10.5)
+gl.set_yticks([]); gl.spines["left"].set_visible(False); gl.set_ylim(0, 2600)
+gl.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=LGRAY), plt.Rectangle((0, 0), 1, 1, color=BLUE)], labels=["Sin permiso", "Con permiso (PEP o PPT)"],
+          loc="upper center", bbox_to_anchor=(0.5, -0.2), ncol=2, frameon=False, fontsize=9.5)
+gl.set_title("1. Por qué importa: un migrante con permiso aporta más" + NL + "(USD por persona al año)", loc="left", fontsize=10.5, fontweight="bold", color=INK)
+# panel derecho: PIB que se deja de generar al vencer el PPT
+sc = [("Se mantiene la tarifa", irreg_tarifa, ORANGE), ("Sin tarifa: 50 % obtiene la visa", BASE * 0.5, "#f2a27e"), ("Sin tarifa: 80 % obtiene la visa", BASE * 0.2, "#f8cdb8")]
+yy = np.array([2, 1, 0])
+for yi, (lab, irr, col) in zip(yy, sc):
+    v = irr * pib_pp / 1e6
+    gr.barh(yi, v, 0.58, color=col)
+    gr.text(v + 20, yi + 0.1, f"−USD {miles(v)} M", va="center", fontsize=12, fontweight="bold", color=ORANGE)
+    gr.text(v + 20, yi - (0.32 if yi == 2 else 0.2), f"{pc(irr / 1e6)} M quedan irregulares" + (NL + "Cancillería recibe USD 21 M en 5 años" if yi == 2 else ""), va="center", fontsize=9, color=GRAY)
+gr.set_yticks(yy); gr.set_yticklabels([s_[0].replace(": ", ":" + NL) for s_ in sc], fontsize=10)
+gr.tick_params(axis="y", length=0); gr.set_xticks([]); gr.spines["left"].set_visible(False); gr.spines["bottom"].set_visible(False); gr.set_xlim(0, 2050)
+gr.set_title("2. Qué está en juego: PIB que se deja de generar cada año" + NL + "cuando venza el PPT (2031)", loc="left", fontsize=10.5, fontweight="bold", color=INK)
+fig.text(0.04, 0.95, "Mantener regulares a los venezolanos sostiene la economía: quitar la tarifa de la Visa R evita perder" + NL +
+         "hasta USD 938 millones de PIB al año, a cambio de USD 21 millones de recaudo", fontsize=13.5, fontweight="bold", ha="left", va="top")
+fig.text(0.04, 0.012, FUENTE, fontsize=7.4, color=GRAY, ha="left")
+fig.savefig(FIG / "pr13_historia_completa.png", dpi=250, facecolor="white"); plt.close(fig)
