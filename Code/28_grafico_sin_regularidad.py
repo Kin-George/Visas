@@ -30,30 +30,31 @@ ing_prom = 13.8e12 / 1.76e6
 ing_irr = ing_prom / ((1 - COB) + COB * (1 + EF_ING)); ing_reg = ing_irr * (1 + EF_ING)
 cons_prom = ing_prom * 0.8
 cons_irr = cons_prom / ((1 - COB) + COB * (1 + EF_CONS)); cons_reg = cons_irr * (1 + EF_CONS)
-d_ing = (ing_reg - ing_irr) / TRM
-d = {"PIB (valor agregado)": d_ing / SH_LAB,
-     "Consumo de los hogares": (cons_reg - cons_irr) / TRM,
-     "Ingreso laboral": d_ing,
-     "Impuestos y aportes": (935.19 - 498.0) / 2.25}
-tot = {k: v * REGULARES / 1e6 for k, v in d.items()}
-pib_pct = 100 * tot["PIB (valor agregado)"] * 1e6 * TRM / PIB
-pd.DataFrame({"indicador": list(d), "perdida_por_persona_USD_anual": list(d.values()), "perdida_total_USD_M_anual": list(tot.values())}).round(1).to_csv(
-    TAB / "t28_sin_regularidad.csv", index=False)
+lev = {"PIB (valor agregado)": (ing_reg / SH_LAB / TRM, ing_irr / SH_LAB / TRM),
+       "Consumo de los hogares": (cons_reg / TRM, cons_irr / TRM),
+       "Ingreso laboral": (ing_reg / TRM, ing_irr / TRM),
+       "Impuestos y aportes": (935.19 / 2.25, 498.0 / 2.25)}
+tot = {k: (a * REGULARES / 1e9, b * REGULARES / 1e9) for k, (a, b) in lev.items()}
+pib_hoy, pib_irr = (100 * v * 1e9 * TRM / PIB for v in tot["PIB (valor agregado)"])
+pd.DataFrame({"indicador": list(tot), "hoy_regulares_USD_miles_M": [a for a, b in tot.values()], "si_irregulares_USD_miles_M": [b for a, b in tot.values()],
+              "perdida_USD_M": [(a - b) * 1e3 for a, b in tot.values()], "caida_pct": [100 * (1 - b / a) for a, b in tot.values()]}).round(2).to_csv(TAB / "t28_sin_regularidad.csv", index=False)
 
-fig, ax = plt.subplots(figsize=(6.8, 4.1)); fig.subplots_adjust(left=0.27, right=0.95, top=0.74, bottom=0.12)
-labs = list(d)[::-1]; vals = [tot[k] for k in labs]
-cols = [ORANGE if k == "PIB (valor agregado)" else "#f2a27e" for k in labs]
-y = np.arange(len(labs))
-ax.barh(y, vals, 0.58, color=cols)
-for yi, k, v in zip(y, labs, vals):
-    extra = f"{pc(pib_pct)} % del PIB · " if k == "PIB (valor agregado)" else ""
-    ax.text(v + 20, yi + 0.1, f"−USD {miles(v)} M", va="center", fontsize=12, fontweight="bold", color=ORANGE)
-    ax.text(v + 20, yi - 0.24, f"{extra}USD {miles(d[k])} menos por persona al año", va="center", fontsize=8.3, color=GRAY)
-ax.set_yticks(y); ax.set_yticklabels(labs, fontsize=11); ax.tick_params(axis="y", length=0)
-ax.set_xticks([]); ax.spines["left"].set_visible(False); ax.spines["bottom"].set_visible(False); ax.set_xlim(0, 2600)
-fig.text(0.03, 0.94, f"Si los 2 millones de migrantes venezolanos regulares pasaran a ser irregulares," + NL +
-         f"Colombia perdería USD {pc(tot['PIB (valor agregado)'] / 1e3, 1)} mil millones de PIB cada año", fontsize=13, fontweight="bold", ha="left", va="top")
-fig.text(0.03, 0.79, f"Pérdida anual frente a hoy. Regulares hoy: {miles(REGULARES)} (PPT y cédula de extranjería).", fontsize=9.5, ha="left", color=ORANGE)
-fig.text(0.03, 0.025, "Fuente: Ibáñez et al. (2025), JEEA; DANE, GEIH 2025, EPM VIII-2025 y cuentas nacionales; Migración Colombia (2026).", fontsize=7.8, color=GRAY, ha="left")
+fig, ax = plt.subplots(figsize=(7.0, 4.3)); fig.subplots_adjust(left=0.04, right=0.98, top=0.72, bottom=0.2)
+x = np.arange(4); w = 0.36; names = list(tot)
+for i, k in enumerate(names):
+    a, b = tot[k]
+    ax.bar(i - w / 2, a, w, color=BLUE); ax.bar(i + w / 2, b, w, color="#f2a27e")
+    ax.text(i - w / 2, a + 0.1, pc(a, 1), ha="center", va="bottom", fontsize=11, fontweight="bold", color=BLUE)
+    ax.text(i + w / 2, b + 0.1, pc(b, 1), ha="center", va="bottom", fontsize=11, fontweight="bold", color=ORANGE)
+    ax.text(i, a + 0.85, f"−{100 * (1 - b / a):.0f} %", ha="center", va="bottom", fontsize=14, fontweight="bold", color=ORANGE)
+ax.set_xticks(x); ax.set_xticklabels([n.replace(" (", NL + "(").replace("de los ", "de los" + NL) for n in names], fontsize=10.5)
+ax.set_yticks([]); ax.spines["left"].set_visible(False); ax.set_ylim(0, 9.5); ax.set_xlim(-0.6, 3.6)
+ax.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=BLUE), plt.Rectangle((0, 0), 1, 1, color="#f2a27e")],
+          labels=["Hoy: con estatus regular", "Si pasaran a ser irregulares"], loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2, frameon=False, fontsize=10)
+fig.text(0.03, 0.95, "Si los 2 millones de migrantes regulares pasaran a ser irregulares, su aporte" + NL +
+         f"al PIB caería de {pc(pib_hoy)} % a {pc(pib_irr)} %, y lo que pagan en impuestos, casi a la mitad", fontsize=12.5, fontweight="bold", ha="left", va="top")
+fig.text(0.03, 0.8, f"Aporte anual de los {miles(REGULARES)} venezolanos regulares de hoy (PPT y cédula de extranjería), en miles de millones de USD.",
+         fontsize=9.3, ha="left", color=ORANGE)
+fig.text(0.03, 0.015, "Fuente: Ibáñez et al. (2025), JEEA; DANE, GEIH 2025, EPM VIII-2025 y cuentas nacionales; Migración Colombia (2026).", fontsize=7.8, color=GRAY, ha="left")
 fig.savefig(FIG / "pr15_sin_regularidad.png", dpi=250, facecolor="white"); plt.close(fig)
-print({k: (round(d[k]), round(tot[k])) for k in d}, "PIB %", round(pib_pct, 3))
+print({k: (round(a, 2), round(b, 2)) for k, (a, b) in tot.items()}, round(pib_hoy, 2), round(pib_irr, 2))
