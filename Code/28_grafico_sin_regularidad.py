@@ -39,22 +39,29 @@ pib_hoy, pib_irr = (100 * v * 1e9 * TRM / PIB for v in tot["PIB (valor agregado)
 pd.DataFrame({"indicador": list(tot), "hoy_regulares_USD_miles_M": [a for a, b in tot.values()], "si_irregulares_USD_miles_M": [b for a, b in tot.values()],
               "perdida_USD_M": [(a - b) * 1e3 for a, b in tot.values()], "caida_pct": [100 * (1 - b / a) for a, b in tot.values()]}).round(2).to_csv(TAB / "t28_sin_regularidad.csv", index=False)
 
+# ---- comparación con el total de la economía
+NAC = {"PIB (valor agregado)": (PIB, "del PIB"),
+       "Ingreso laboral": (525.1e12, "del ingreso laboral del país"),
+       "Impuestos y aportes": (296e12, "del recaudo de la DIAN")}
+shr = {k: tuple(100 * v * 1e9 * TRM / NAC[k][0] for v in tot[k]) for k in NAC}
+pd.DataFrame({"indicador": list(shr), "pct_hoy": [a for a, b in shr.values()], "pct_si_irregulares": [b for a, b in shr.values()],
+              "total_nacional_billones_COP": [NAC[k][0] / 1e12 for k in shr]}).round(2).to_csv(TAB / "t28b_peso_en_la_economia.csv", index=False)
 fig, ax = plt.subplots(figsize=(7.0, 4.3)); fig.subplots_adjust(left=0.04, right=0.98, top=0.72, bottom=0.2)
-x = np.arange(4); w = 0.36; names = list(tot)
+x = np.arange(3); w = 0.36; names = list(shr)
 for i, k in enumerate(names):
-    a, b = tot[k]
+    a, b = shr[k]
     ax.bar(i - w / 2, a, w, color=BLUE); ax.bar(i + w / 2, b, w, color="#f2a27e")
-    ax.text(i - w / 2, a + 0.1, pc(a, 1), ha="center", va="bottom", fontsize=11, fontweight="bold", color=BLUE)
-    ax.text(i + w / 2, b + 0.1, pc(b, 1), ha="center", va="bottom", fontsize=11, fontweight="bold", color=ORANGE)
-    ax.text(i, a + 0.85, f"−{100 * (1 - b / a):.0f} %", ha="center", va="bottom", fontsize=14, fontweight="bold", color=ORANGE)
-ax.set_xticks(x); ax.set_xticklabels([n.replace(" (", NL + "(").replace("de los ", "de los" + NL) for n in names], fontsize=10.5)
-ax.set_yticks([]); ax.spines["left"].set_visible(False); ax.set_ylim(0, 9.5); ax.set_xlim(-0.6, 3.6)
+    ax.text(i - w / 2, a + 0.04, f"{pc(a)} %", ha="center", va="bottom", fontsize=12, fontweight="bold", color=BLUE)
+    ax.text(i + w / 2, b + 0.04, f"{pc(b)} %", ha="center", va="bottom", fontsize=12, fontweight="bold", color=ORANGE)
+ax.set_xticks(x); ax.set_xticklabels([f"Participación{NL}{NAC[k][1]}" for k in names], fontsize=10.5)
+ax.set_yticks([]); ax.spines["left"].set_visible(False); ax.set_ylim(0, 3.8); ax.set_xlim(-0.6, 2.6)
 ax.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=BLUE), plt.Rectangle((0, 0), 1, 1, color="#f2a27e")],
           labels=["Hoy: con estatus regular", "Si pasaran a ser irregulares"], loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2, frameon=False, fontsize=10)
-fig.text(0.03, 0.95, "Si los 2 millones de migrantes regulares pasaran a ser irregulares, su aporte" + NL +
-         f"al PIB caería de {pc(pib_hoy)} % a {pc(pib_irr)} %, y lo que pagan en impuestos, casi a la mitad", fontsize=12.5, fontweight="bold", ha="left", va="top")
-fig.text(0.03, 0.8, f"Aporte anual de los {miles(REGULARES)} venezolanos regulares de hoy (PPT y cédula de extranjería), en miles de millones de USD.",
-         fontsize=9.3, ha="left", color=ORANGE)
-fig.text(0.03, 0.015, "Fuente: Ibáñez et al. (2025), JEEA; DANE, GEIH 2025, EPM VIII-2025 y cuentas nacionales; Migración Colombia (2026).", fontsize=7.8, color=GRAY, ha="left")
+fig.text(0.03, 0.95, "Si los 2 millones de migrantes regulares pasaran a ser irregulares, su peso" + NL +
+         f"en la economía caería: de {pc(shr['PIB (valor agregado)'][0])} % a {pc(shr['PIB (valor agregado)'][1])} % del PIB, y su aporte al recaudo, casi a la mitad",
+         fontsize=12.5, fontweight="bold", ha="left", va="top")
+fig.text(0.03, 0.8, f"Aporte de los {miles(REGULARES)} venezolanos regulares de hoy como porcentaje del total del país (2025).", fontsize=9.3, ha="left", color=ORANGE)
+fig.text(0.03, 0.015, "Fuente: Ibáñez et al. (2025), JEEA; DANE, GEIH 2025, EPM VIII-2025 y cuentas nacionales (PIB 2025); DIAN (recaudo 2025); Migración Colombia (2026).",
+         fontsize=7.6, color=GRAY, ha="left")
 fig.savefig(FIG / "pr15_sin_regularidad.png", dpi=250, facecolor="white"); plt.close(fig)
-print({k: (round(a, 2), round(b, 2)) for k, (a, b) in tot.items()}, round(pib_hoy, 2), round(pib_irr, 2))
+print({k: (round(a, 2), round(b, 2)) for k, (a, b) in shr.items()})
