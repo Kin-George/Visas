@@ -374,7 +374,71 @@ for t in notas:
     r += 1
 ws.freeze_panes = ws.cell(hy + 1, 2)
 
-wb.calculation.fullCalcOnLoad = True         # Excel recalcula todas las fórmulas al abrir
+# ======================================================================== Grafico (pr23 en Excel)
+from openpyxl.chart import BarChart, Reference
+from openpyxl.chart.series import DataPoint
+from openpyxl.chart.label import DataLabelList
+from openpyxl.chart.shapes import GraphicalProperties
+
+gs = wb.create_sheet("Grafico")
+gs.column_dimensions["A"].width = 60
+for j in range(len(YRS)):
+    gs.column_dimensions[chr(66 + j)].width = 10
+gs["A1"] = "Visa R gratis desde 2027: lo que deja de recibir Cancillería frente a lo que gana el país (USD millones al año)"
+gs["A1"].font = font(bold=True, size=12)
+gs["A2"] = ("Hasta 2030: consumo adicional de los nuevos residentes (fila 1 de Visa_cero_2027). Desde 2031: PIB que se conserva (fila 2), el mayor de los dos. "
+            "No se suman. Todo se recalcula al cambiar Supuestos.")
+gs["A2"].font = font(size=9); gs.merge_cells("A2:K2"); gs["A2"].alignment = Alignment(wrap_text=True); gs.row_dimensions[2].height = 28
+gs.cell(4, 1, "Año").font = font(bold=True, white=True); gs.cell(4, 1).fill = HEAD
+gs.cell(5, 1, "Lo que gana el país").font = font(bold=True)
+gs.cell(6, 1, "Lo que deja de recibir Cancillería").font = font(bold=True)
+V = "Visa_cero_2027"
+for j, y in enumerate(YRS):
+    col = chr(66 + j)
+    c = gs.cell(4, 2 + j, str(y)); c.font = font(bold=True, white=True); c.fill = HEAD; c.alignment = Alignment(horizontal="center")
+    if y < 2031:
+        f = f"={V}!{col}{R['bono']}"
+    else:
+        f = f"=MAX({V}!{col}{R['pib']}+{V}!{col}{R['pibres']},{V}!{col}{R['bono']})"
+    c = gs.cell(5, 2 + j, f); c.font = font(GREEN); c.number_format = '#,##0'; c.border = BOX
+    c = gs.cell(6, 2 + j, f"=-{V}!{col}{R['rec']}"); c.font = font(GREEN); c.number_format = '#,##0.0;-#,##0.0;-'; c.border = BOX
+gs.cell(8, 1, "Cifras del título y subtítulo").font = font(bold=True)
+TT = chr(66 + len(YRS))
+sub = [("Recaudo total que deja de recibir Cancillería 2027-2031 (USD M)", f"={V}!{TT}{R['rec']}", '#,##0.0'),
+       ("Personas que siguen regulares desde 2031 gracias a la tarifa cero", f"={V}!K{R['ad']}", NUM0),
+       ("Dólares de consumo por cada dólar, 2027-2030", f"=SUM({V}!B{R['bono']}:E{R['bono']})/SUM({V}!B{R['rec']}:E{R['rec']})", '0.0'),
+       ("Dólares de PIB por cada dólar, hasta 2036", f"=({V}!{TT}{R['pib']}+{V}!{TT}{R['pibres']})/{V}!{TT}{R['rec']}", '0.0')]
+for i, (lab, f, fmt) in enumerate(sub):
+    gs.cell(9 + i, 1, lab).font = font()
+    c = gs.cell(9 + i, 2, f); c.number_format = fmt; c.font = font(GREEN, bold=True); c.fill = KEY; c.border = BOX
+
+ch = BarChart(); ch.type = "col"; ch.grouping = "clustered"; ch.overlap = 100; ch.gapWidth = 60
+ch.title = "Visa R gratis desde 2027 (USD millones al año)"
+ch.y_axis.title = "USD millones"; ch.y_axis.majorGridlines = None
+ch.add_data(Reference(gs, min_col=1, max_col=1 + len(YRS), min_row=5, max_row=6), from_rows=True, titles_from_data=True)
+ch.set_categories(Reference(gs, min_col=2, max_col=1 + len(YRS), min_row=4, max_row=4))
+s_gana, s_rec = ch.series
+s_gana.graphicalProperties = GraphicalProperties(solidFill="1F3B5C")
+for idx, y in enumerate(YRS):
+    if y < 2031:
+        dp = DataPoint(idx=idx); dp.graphicalProperties = GraphicalProperties(solidFill="9FC0EA"); s_gana.dPt.append(dp)
+s_rec.graphicalProperties = GraphicalProperties(solidFill="EB6A35")
+for s_ in (s_gana, s_rec):
+    s_.dLbls = DataLabelList(); s_.dLbls.showVal = True
+    for a in ("showSerName", "showCatName", "showLegendKey", "showPercent"):
+        setattr(s_.dLbls, a, False)
+s_gana.dLbls.numFmt = '#,##0'; s_rec.dLbls.numFmt = '"−"#,##0.0;"−"#,##0.0;'
+s_gana.dLbls.position = 'outEnd'; s_rec.dLbls.position = 'outEnd'
+ch.legend.position = "b"; ch.legend.overlay = False
+ch.roundedCorners = False
+ch.x_axis.delete = False; ch.y_axis.delete = False
+ch.title.overlay = False; ch.y_axis.title.overlay = False
+ch.y_axis.scaling.min = -200; ch.y_axis.scaling.max = 1200; ch.y_axis.majorUnit = 200
+ch.x_axis.tickLblPos = "low"
+ch.height = 10; ch.width = 24
+gs.add_chart(ch, "A14")
+
+wb.calculation.fullCalcOnLoad = True        # Excel recalcula todas las fórmulas al abrir
 OUT.parent.mkdir(exist_ok=True)
 wb.save(OUT)
 print("guardado", OUT)
