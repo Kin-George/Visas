@@ -144,3 +144,34 @@ fig.text(0.04, 0.95, "Mantener regulares a los venezolanos sostiene la economía
          f"entre USD {miles(esc['50 %'] * pib_pp / 1e6)} y {miles(esc['80 %'] * pib_pp / 1e6)} millones de PIB al año, a cambio de USD 21 millones de recaudo", fontsize=13.5, fontweight="bold", ha="left", va="top")
 fig.text(0.04, 0.012, FUENTE, fontsize=7.4, color=GRAY, ha="left")
 fig.savefig(FIG / "pr13_historia_completa.png", dpi=250, facecolor="white"); plt.close(fig)
+
+# =============================================================== E. año a año: recaudo de la tarifa frente al PIB que conserva la gratuidad
+anios = np.arange(2027, 2036)
+visas_tend = {2027: 5_984, 2028: 7_450, 2029: 8_916, 2030: 10_382, 2031: 11_848}      # tendencia lineal (Excel del equipo); suma 44.580
+rec = np.array([visas_tend.get(a, 0) * 464 / 1e6 for a in anios])
+frac = np.array([0 if a < 2031 else (7 / 12 if a == 2031 else 1) for a in anios])      # el PPT vence el 30-may-2031
+b50 = frac * esc["50 %"] * pib_pp / 1e6; b80 = frac * esc["80 %"] * pib_pp / 1e6
+pd.DataFrame({"anio": anios, "recaudo_tarifa_USD_M": rec, "PIB_conservado_50_USD_M": b50, "PIB_conservado_80_USD_M": b80}).round(1).to_csv(TAB / "t27_anio_a_anio.csv", index=False)
+fig, ax = plt.subplots(figsize=(7.2, 4.2)); fig.subplots_adjust(left=0.05, right=0.98, top=0.74, bottom=0.12)
+w = 0.27
+ax.bar(anios - w, rec, w, color=ORANGE, label="Recaudo de la tarifa (si se mantiene)")
+ax.bar(anios, b50, w, color=BLUE, label="PIB que se conserva sin tarifa: 50 % obtiene la visa")
+ax.bar(anios + w, b80, w, color=NAVY, label="PIB que se conserva sin tarifa: 80 % obtiene la visa")
+for a, r_, x50, x80 in zip(anios, rec, b50, b80):
+    if r_ > 0:
+        ax.text(a - w, r_ + 12, f"{pc(r_, 1)}", ha="center", va="bottom", fontsize=8, color=ORANGE, fontweight="bold")
+    if x50 > 0:
+        ax.text(a, x50 + 12, f"{miles(x50)}", ha="center", va="bottom", fontsize=8, color=BLUE, fontweight="bold")
+        ax.text(a + w, x80 + 12, f"{miles(x80)}", ha="center", va="bottom", fontsize=8, color=NAVY, fontweight="bold")
+ax.axvline(2030.62, color=GRAY, lw=0.8, ls="--")
+ax.text(2030.55, 620, "30 de mayo de 2031:" + NL + "vence el PPT", ha="right", va="center", fontsize=9.5, color=GRAY)
+ax.text(2028.5, 300, "Hasta 2031 el PPT mantiene la regularidad:" + NL + "la tarifa solo genera recaudo", ha="center", va="center", fontsize=9.5, color=GRAY)
+ax.set_xticks(anios); ax.set_xticklabels([str(a) for a in anios], fontsize=10)
+ax.set_yticks([]); ax.spines["left"].set_visible(False); ax.set_ylim(0, 1150); ax.set_xlim(2026.5, 2035.5)
+ax.legend(loc="upper left", bbox_to_anchor=(0.0, 1.0), ncol=1, frameon=False, fontsize=9)
+fig.text(0.03, 0.95, "Año a año: la tarifa recauda menos de USD 6 millones al año; sin ella, desde 2031" + NL +
+         f"el país conserva entre USD {miles(esc['50 %'] * pib_pp / 1e6)} y {miles(esc['80 %'] * pib_pp / 1e6)} millones de PIB cada año",
+         fontsize=12.5, fontweight="bold", ha="left", va="top")
+fig.text(0.03, 0.8, "Millones de USD por año. 2031 cuenta desde junio, cuando vence el PPT.", fontsize=9.5, ha="left", color=ORANGE)
+fig.text(0.03, 0.015, FUENTE, fontsize=7.2, color=GRAY, ha="left")
+fig.savefig(FIG / "pr14_anio_a_anio.png", dpi=250, facecolor="white"); plt.close(fig)
