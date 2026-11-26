@@ -43,31 +43,31 @@ d = pd.DataFrame({"escenario": [k.replace(NL, " ") for k in esc], "regulares_203
 d.to_csv(TAB / "t32_tres_escenarios.csv", index=False)
 print(d.to_string()); print("hoy PIB", round(hoy_pib), "hoy fiscal", round(hoy_fis))
 
-cols = [ORANGE, LORANGE, BLUE]
-panels = [("Siguen con estatus regular" + NL + "en 2031", d["regulares_2031"] / 1e3, lambda v: f"{pc(v / 1e3, 2)} millones" if v >= 1e3 else f"{miles(v)} mil", 1.35 * REG / 1e3),
-          ("PIB que se pierde cada año" + NL + "frente a hoy (USD millones)", d["perdida_PIB_vs_hoy_USD_M"], lambda v: f"−{miles(v)}", 1.35 * d["perdida_PIB_vs_hoy_USD_M"].max()),
-          ("Costo fiscal extra para el Estado" + NL + "cada año (USD millones)", d["costo_fiscal_extra_vs_hoy_USD_M"], lambda v: f"+{miles(v)}", 1.35 * d["costo_fiscal_extra_vs_hoy_USD_M"].max())]
-fig = plt.figure(figsize=(10.4, 4.9))
-y = -np.arange(3)
-for j, (tit, vals, fmt, xmax) in enumerate(panels):
-    ax = fig.add_axes([0.2 + j * 0.27, 0.13, 0.22, 0.56])
-    ax.barh(y, vals, 0.62, color=cols)
-    for yi, v, c in zip(y, vals, cols):
-        ax.text(v + xmax * 0.02, yi, fmt(v), va="center", fontsize=12, fontweight="bold", color=NAVY if c == BLUE else ORANGE)
-    ax.set_xlim(0, xmax); ax.set_ylim(-2.5, 0.5); ax.set_xticks([])
-    ax.set_yticks(y); ax.set_yticklabels([k for k in esc] if j == 0 else [], fontsize=10.5)
-    ax.tick_params(axis="y", length=0)
-    for s in ax.spines.values():
-        s.set_visible(False)
-    ax.axvline(0, color="#555555", lw=0.6)
-    ax.set_title(tit, loc="left", fontsize=10.5, fontweight="bold", color=INK)
-    if j == 0:
-        ax.text(0, 0.62 + 0.5, "", fontsize=1)
-fig.text(0.2, 0.065, f"Hoy: {pc(REG / 1e6, 2)} millones con estatus regular, que aportan USD {miles(hoy_pib)} millones de PIB al año." +
-         f" Con la tarifa, Cancillería recauda USD {pc(TARIFA)} millones al año.", fontsize=9.5, color=GRAY, ha="left")
-fig.text(0.03, 0.965, "Mantener la tarifa da casi el mismo resultado que si todos perdieran su estatus regular;" + NL +
-         f"con tarifa cero se evita {pc(100 * (1 - d.iloc[2, 3] / d.iloc[0, 3]), 0)} % de la pérdida de PIB y del costo fiscal", fontsize=14, fontweight="bold", ha="left", va="top")
-fig.text(0.03, 0.83, "Qué pasa en 2031, cuando vence el PPT, con los 2 millones de venezolanos que hoy son regulares.", fontsize=10, ha="left", color=GRAY)
+# ======================= gráfico simple: cuántas de las 2 millones de personas siguen regulares y cuánto pierde la economía
+filas = [("Hoy", REG, None)] + [(k, r, hoy_pib - pib(r)) for k, r in esc.items()]
+etq = ["Hoy", "1. Todos pierden" + NL + "el estatus regular", "2. Se mantiene" + NL + "la tarifa de USD 464", "3. Tarifa cero"]
+fig, ax = plt.subplots(figsize=(9.2, 4.9)); fig.subplots_adjust(left=0.2, right=0.72, top=0.74, bottom=0.14)
+y = -np.arange(4)
+for yi, (k, r, perd) in zip(y, filas):
+    ax.barh(yi, r / 1e6, 0.6, color=BLUE)
+    ax.barh(yi, (REG - r) / 1e6, 0.6, left=r / 1e6, color=LORANGE)
+    share = r / REG
+    if share > 0.15:
+        ax.text(r / 2e6, yi, f"{pc(100 * share, 0)} % regulares", ha="center", va="center", fontsize=11, fontweight="bold", color="white")
+    if share < 0.95:
+        ax.text((r + (REG - r) / 2) / 1e6, yi, f"{pc(100 * (1 - share), 0)} % irregulares", ha="center", va="center", fontsize=11, fontweight="bold", color="#7a2e0e")
+    txt, col = (f"Aportan USD {miles(hoy_pib)} M" + NL + "de PIB al año", NAVY) if perd is None else (f"−USD {miles(perd)} M", ORANGE if perd > 1000 else BLUE)
+    ax.text(2.1, yi, txt, ha="left", va="center", fontsize=12.5 if perd is not None else 11, fontweight="bold", color=col, transform=ax.transData)
+ax.text(2.1, 0.55, "La economía pierde" + NL + "cada año frente a hoy", ha="left", va="bottom", fontsize=10, color=GRAY)
+ax.set_yticks(y); ax.set_yticklabels(etq, fontsize=11); ax.tick_params(axis="y", length=0)
+ax.set_xticks([]); ax.set_xlim(0, REG / 1e6); ax.set_ylim(-3.5, 0.9)
+for s in ax.spines.values():
+    s.set_visible(False)
+ax.get_yticklabels()[0].set_fontweight("bold")
+fig.text(0.03, 0.965, "Con la tarifa, en 2031 casi todos los venezolanos regulares quedarían irregulares;" + NL +
+         f"sin tarifa, {pc(10 * esc[list(esc)[2]] / REG, 0)} de cada 10 seguirían regulares y la pérdida sería tres veces menor", fontsize=14, fontweight="bold", ha="left", va="top")
+fig.text(0.03, 0.835, "Los 2 millones de venezolanos que hoy son regulares, en 2031 cuando vence el PPT. Tarifa cero: 80 % de quienes quieren quedarse obtiene la visa.",
+         fontsize=9.5, ha="left", color=GRAY)
 fig.text(0.03, 0.015, "Fuente: Ibáñez et al. (2025), Journal of the European Economic Association; DANE, GEIH 2025, EPM VIII-2025 y cuentas nacionales; Migración Colombia (2026); Cancillería.",
          fontsize=7.6, color=GRAY, ha="left")
 fig.savefig(FIG / "pr19_tres_escenarios.png", dpi=250, facecolor="white"); plt.close(fig)
