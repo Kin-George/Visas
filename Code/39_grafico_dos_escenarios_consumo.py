@@ -37,6 +37,7 @@ t35 = pd.read_csv(TAB / "t35_consumo_residencia.csv").set_index("escenario")
 C_REG, C_IRR = t34["  regulares (billones)"], t34["  irregulares (billones)"]
 BONO = t35.loc["Central", "aumento_pct"] / 100                  # +8,8 % de consumo con residencia permanente
 TRM = 4052.86
+COB_EPM = 0.66
 
 # ---- personas que obtienen la Visa R (acumulado, base Migración Colombia)
 REG_MIG, RES, QUIEREN, CONV, BASE = 1_990_196, 14_444, 1_770_136, 0.80, 8_440
@@ -127,11 +128,11 @@ def partes(visas):
 def grafico(visas, tot, col, archivo, titulo, sub, notas, recaudo_txt, etq_anios=(2030, 2036)):
     """Una sola línea: el consumo total, comparado con hoy. Verde-azul donde gana, naranja donde pierde."""
     hoy = tot[0]
-    fig, ax = plt.subplots(figsize=(9.6, 5.6)); fig.subplots_adjust(left=0.05, right=0.97, top=0.76, bottom=0.12)
+    fig, ax = plt.subplots(figsize=(9.6, 6.6)); fig.subplots_adjust(left=0.16, right=0.98, top=0.79, bottom=0.27)
     ax.fill_between(YRS, hoy, tot, where=tot >= hoy, interpolate=True, color=BLUE, alpha=0.18, lw=0, zorder=1)
     ax.fill_between(YRS, hoy, tot, where=tot <= hoy, interpolate=True, color=ORANGE, alpha=0.18, lw=0, zorder=1)
     ax.axhline(hoy, color=GRAY, lw=1, ls=":", zorder=2)
-    ax.text(2024.75, hoy + 0.25, f"Hoy: {pc(hoy)} billones", fontsize=10, color=GRAY, va="bottom")
+    ax.text(2024.75, hoy - 0.3, f"Hoy: {pc(hoy)} billones", fontsize=10, color=GRAY, va="top")
     ax.plot(YRS, tot, color=col, lw=3.4, marker="o", ms=6, zorder=3)
     for y_, v in zip(YRS, tot):
         if y_ in etq_anios:
@@ -145,18 +146,36 @@ def grafico(visas, tot, col, archivo, titulo, sub, notas, recaudo_txt, etq_anios
             bbox=dict(boxstyle="round,pad=0.5", fc="white", ec=NAVY, lw=0.8))
     ax.set_xticks(YRS); ax.set_xticklabels([str(y) for y in YRS], fontsize=10.5)
     ax.set_xlim(2024.6, 2036.5); ax.set_ylim(22, 36)
-    ax.set_yticks([])
-    ax.tick_params(axis="x", length=0)
-    for s_ in ["top", "right", "left"]:
+    ax.set_yticks(range(22, 37, 2))
+    ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: pc(v, 0)))
+    ax.set_ylabel("Billones de pesos de 2025 al año", fontsize=10, color=GRAY)
+    ax.tick_params(axis="x", length=0); ax.tick_params(axis="y", labelsize=10, colors="#444444", length=3)
+    ax.grid(axis="y", color="#e6e9ee", lw=0.7, zorder=0)
+    for s_ in ["top", "right"]:
         ax.spines[s_].set_visible(False)
-    ax.spines["bottom"].set_color("#999999")
+    ax.spines["bottom"].set_color("#999999"); ax.spines["left"].set_color("#999999")
+    # tabla de personas (miles, a diciembre de cada año)
+    trans = matplotlib.transforms.blended_transform_factory(ax.transData, ax.transAxes)
+    ppt_rest = REG_MIG - visas - RES
+    reg = visas + RES + np.where(YRS < 2031, ppt_rest, 0)
+    irr = IRR0 + np.where(YRS >= 2031, ppt_rest, 0)
+    filas = [("Obtienen la Visa R", visas, NAVY), ("Regulares", reg, BLUE), ("Irregulares", irr, ORANGE)]
+    ax.text(2024.45, -0.115, "Personas, en miles:", transform=trans, ha="right", va="center", fontsize=9.5, color=GRAY, style="italic")
+    for k, (nom, serie, c_) in enumerate(filas):
+        yy = -0.17 - 0.055 * k
+        ax.text(2024.45, yy, nom, transform=trans, ha="right", va="center", fontsize=10, fontweight="bold", color=c_)
+        for x_, v in zip(YRS, serie):
+            ax.text(x_, yy, miles(v / 1e3), transform=trans, ha="center", va="center", fontsize=9.5, color=c_)
     fig.text(0.03, 0.965, titulo, fontsize=15, fontweight="bold", ha="left", va="top")
-    fig.text(0.03, 0.835, sub, fontsize=10.5, ha="left", va="top", color=GRAY)
+    fig.text(0.03, 0.865, sub, fontsize=10.5, ha="left", va="top", color=GRAY)
+    fig.text(0.03, 0.045, "Personas: regulares según Migración Colombia (PPT y cédula de extranjería); irregulares estimados con la proporción de la EPM VIII-2025 (34 %)."
+             + " A diciembre de cada año.", fontsize=7.4, color=GRAY, ha="left")
     fig.text(0.03, 0.02, "Fuente: cálculos propios con DANE (GEIH 2025, cuentas nacionales), EPM VIII-2025, Migración Colombia y Cancillería; Ibáñez et al. (2025), JEEA;"
              + " De Arcangelis y Joxhe (2015).", fontsize=7.4, color=GRAY, ha="left")
     fig.savefig(FIG / archivo, dpi=250, facecolor="white"); plt.close(fig)
 
 
+IRR0 = REG_MIG * (1 - COB_EPM) / COB_EPM          # irregulares: 34 % de los venezolanos (EPM), aplicado a los regulares de Migración
 SUB = "Consumo de los hogares venezolanos en Colombia, billones de pesos de 2025 al año. Todo lo demás se mantiene igual que en 2025."
 irr_t = 1 - (visa_tarifa[-1] + RES) / REG_MIG
 irr_c = 1 - (visa_cero[-1] + RES) / REG_MIG
